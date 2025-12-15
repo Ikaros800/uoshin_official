@@ -314,8 +314,104 @@
       html{ scroll-behavior:auto; }
       .btn{ transition:none; }
     }
+    .notice{
+  margin-top: 32px;
+  padding: 18px 20px;
+  border: 1px solid #333;
+  background: #151515;
+  border-radius: 12px;
+}
+
+.notice-head{ margin-bottom: 10px; }
+
+.notice-title{
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+
+.notice-sub{
+  margin: 0;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.notice-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+/* 1件あたりの見た目 */
+.notice-item{
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 10px;
+  padding: 12px 12px;
+  border: 1px solid #333;
+  background: #111;
+  border-radius: 10px;
+}
+
+.notice-date{
+  font-size: 12px;
+  color: #aaa;
+  letter-spacing: .06em;
+  white-space: nowrap;
+}
+
+.notice-text{
+  font-size: 14px;
+}
+
+/* ★ここが「最大3件表示＋スクロール」の肝 */
+.notice-scroll{
+  --item-h: 48px;          /* “だいたい1件分”の高さ目安（必要なら調整） */
+  max-height: calc(var(--item-h) * 3 + 10px * 2); /* 3件＋gap2つ分 */
+  overflow-y: auto;
+  padding-right: 4px;      /* スクロールバーで文字が隠れにくくする */
+}
+
+/* スマホでは日付を上にして見やすく */
+@media (max-width: 560px){
+  .notice-item{ grid-template-columns: 1fr; }
+}
   </style>
 </head>
+<section id="news" class="notice">
+  <div class="notice-head">
+    <h2 class="notice-title">お知らせ</h2>
+    <p class="notice-sub">最新3件が表示され、それ以前はスクロールで確認できます。</p>
+  </div>
+
+  <div class="notice-scroll" aria-label="お知らせ一覧（スクロールできます）">
+    <ul class="notice-list">
+      <!-- ★新しいお知らせは、必ず“上”に追加していく運用にしてください -->
+      <li class="notice-item">
+        <time class="notice-date">【日付】</time>
+        <span class="notice-text">【お知らせ内容（例：◯月◯日は臨時休業します）】</span>
+      </li>
+
+      <li class="notice-item">
+        <time class="notice-date">【日付】</time>
+        <span class="notice-text">【お知らせ内容（例：季節限定メニューを始めました）】</span>
+      </li>
+
+      <li class="notice-item">
+        <time class="notice-date">【日付】</time>
+        <span class="notice-text">【お知らせ内容（例：営業時間を一部変更しています）】</span>
+      </li>
+
+      <li class="notice-item">
+        <time class="notice-date">【日付】</time>
+        <span class="notice-text">【過去のお知らせ（スクロールで見えます）】</span>
+      </li>
+    </ul>
+  </div>
+</section>
 
 <body>
   <header>
