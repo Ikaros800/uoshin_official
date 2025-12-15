@@ -379,6 +379,85 @@
 @media (max-width: 560px){
   .notice-item{ grid-template-columns: 1fr; }
 }
+    /* ===== 予約：常に表示（PCは右側固定 / スマホは下固定） ===== */
+
+.reserve-float{
+  position: fixed;
+  right: 20px;
+  top: 96px;               /* ヘッダーの高さに合わせて調整OK */
+  z-index: 1000;
+  width: 280px;
+}
+
+.reserve-card{
+  border: 1px solid #333;
+  background: #151515;
+  border-radius: 12px;
+  padding: 14px 14px;
+}
+
+.reserve-title{
+  font-size: 13px;
+  letter-spacing: .2em;
+  color: #aaa;
+  margin-bottom: 8px;
+}
+
+.reserve-text{
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.reserve-actions{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.reserve-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid #333;
+  background: #111;
+  color: #eee;
+  font-size: 13px;
+}
+
+.reserve-btn.primary{
+  border-color: rgba(217,195,162,.45);
+  background: rgba(217,195,162,.12);
+}
+
+.reserve-note{
+  font-size: 12px;
+  color: #888;
+}
+
+/* 右側固定が本文にかぶるのを避ける（PCのみ） */
+@media (min-width: 900px){
+  main.container{
+    padding-right: 320px; /* 予約ボックス分の余白 */
+  }
+}
+
+/* スマホ：右固定は邪魔なので、画面下に固定 */
+@media (max-width: 899px){
+  .reserve-float{
+    right: 12px;
+    left: 12px;
+    top: auto;
+    bottom: 12px;
+    width: auto;
+  }
+  .reserve-actions{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -434,10 +513,6 @@
           <div class="mini">
             <div class="label">定休日</div>
             <div class="value">日曜日（営業日でもお魚の仕入れ状況に応じて休業・営業時間短縮がございます）</div>
-          </div>
-          <div class="mini">
-            <div class="label">予約</div>
-            <div class="value">席数が少ないため、事前のご連絡がおすすめです（<a href="#contact">問い合わせへ</a>）。</div>
           </div>
         </aside>
       </div>
@@ -698,5 +773,20 @@
     // 年号のみ自動更新（軽量）
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
+  <!-- 予約：常に表示する固定ボックス -->
+<aside class="reserve-float" aria-label="予約">
+  <div class="reserve-card">
+    <div class="reserve-title">予約</div>
+    <div class="reserve-text">
+      席数が少ないため、事前のご連絡がおすすめです。
+    </div>
+    <div class="reserve-actions">
+      <a class="reserve-btn primary" href="tel:【電話番号】">電話する</a>
+      <a class="reserve-btn" href="#contact">問い合わせ</a>
+    </div>
+    <div class="reserve-note">受付：10:30–21:00</div>
+  </div>
+</aside>
+
 </body>
 </html>
