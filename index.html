@@ -46,11 +46,33 @@
       background: rgba(15,16,18,.72);
       border-bottom:1px solid var(--line);
     }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-      gap:16px;
-    }
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content: flex-start;
+  padding:14px 0;
+  gap:16px;
+}
+
+/* 共通（フッター含む） */
+.social{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* ヘッダー以外は固定しない（フッターはそのまま） */
+.social:not(.social--header){
+  position: static;
+}
+
+/* ヘッダーのSNSだけ固定（必ず“後ろ”に書く） */
+.social.social--header{
+  position: fixed;
+  right: 24px;
+  top: 28px;
+  z-index: 1001;
+}
     .brand{
       display:flex; flex-direction:column; gap:2px;
       min-width: 210px;
@@ -63,10 +85,16 @@
     .brand .tag{
       font-size:12px; color:var(--muted);
     }
-    nav ul{
-      list-style:none; display:flex; gap:18px; padding:0; margin:0;
-      flex-wrap:wrap; justify-content:flex-end;
-    }
+.main-nav ul{
+  list-style:none;
+  display:flex;
+  gap:18px;           /* 元の18でOK（22にしたければ22） */
+  padding:0;
+  margin:0;
+
+  flex-wrap: nowrap;  /* ← wrap禁止 */
+  white-space: nowrap;/* ← 文字折り禁止 */
+}
     nav a{
       font-size:16px;
       color: var(--muted);
@@ -80,6 +108,7 @@
       border-color: var(--line);
       background: rgba(233,230,223,.05);
     }
+
 
     /* Hero */
     .hero{
@@ -462,30 +491,57 @@
   }
 }
 
+.quiet-link{
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(233,230,223,.18);
+  padding-bottom: 2px;
+}
+
+.quiet-link:hover{
+  color: var(--text);
+  border-bottom-color: rgba(217,195,162,.55); /* アクセントがあれば */
+}
+
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="nav">
-        <a class="brand" href="#top" aria-label="ページ先頭へ">
-          <div class="name">魚心</div>
-          <div class="tag">旨い魚を適正価格で、心ゆく迄味わい尽くす。</div>
-        </a>
+ <header>
+  <div class="container">
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="ページ先頭へ">
+        <div class="name">魚心</div>
+        <div class="tag">旨い魚を適正価格で、心ゆく迄味わい尽くす。</div>
+      </a>
 
-        <nav aria-label="ページ内ナビゲーション">
-          <ul>
-            <li><a href="#about">店舗紹介</a></li>
-            <li><a href="#policy">店長のこだわり</a></li>
-            <li><a href="#menu">メニュー</a></li>
-            <li><a href="#hours">営業時間</a></li>
-            <li><a href="#access">アクセス</a></li>
-            <li><a href="#contact">問い合わせ</a></li>
-          </ul>
-        </nav>
+      <nav class="main-nav" aria-label="ページ内ナビゲーション">
+        <ul>
+          <li><a href="#about">店舗紹介</a></li>
+          <li><a href="#policy">店長のこだわり</a></li>
+          <li><a href="#menu">メニュー</a></li>
+          <li><a href="#hours">営業時間</a></li>
+          <li><a href="#access">アクセス</a></li>
+          <li><a href="#contact">問い合わせ</a></li>
+        </ul>
+      </nav>
+
+	<div class="social social--header" aria-label="SNSリンク">
+        <span class="social-label">Follow us!!</span>
+        <a class="social-link"
+           href="https://www.instagram.com/uosin.yokohama?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Instagram（別タブで開く）">IG</a>
+        <a class="social-link"
+           href="https://www.facebook.com/yokohama.uosin/photos"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Facebook（別タブで開く）">FB</a>
       </div>
     </div>
-  </header>
+  </div>
+</header>
+
   <div id="top" class="hero">
     <div class="container">
       <div class="hero-grid">
@@ -549,8 +605,8 @@
       </li>
 
       <li class="notice-item">
-        <time class="notice-date">【日付】</time>
-        <span class="notice-text">【過去のお知らせ（スクロールで見えます）】</span>
+        <time class="notice-date">2026/01/01</time>
+        <span class="notice-text">海鮮小料理屋「魚心」公式HP開設のお知らせ</span>
       </li>
     </ul>
   </div>
@@ -769,8 +825,13 @@
   <footer>
     <div class="container">
       <div>© <span id="y"></span> 魚心. All rights reserved.</div>
-      <div class="note">※ 店名・住所・電話・地図などは実情報に差し替えてご利用ください。</div>
     </div>
+    <div class="social" aria-label="SNSリンク">
+  <a class="social-link" href="https://www.instagram.com/uosin.yokohama?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">IG</a>
+  <a class="social-link" href="https://www.facebook.com/yokohama.uosin/photos" target="_blank" rel="noopener noreferrer">FB</a>
+</div>
+     <a class="quiet-link" href="jobs.html">採用情報（アルバイト）</a>
+
   </footer>
 
   <script>
@@ -788,7 +849,7 @@
       <a class="reserve-btn primary" href="tel:【電話番号】">電話する</a>
       <a class="reserve-btn" href="#contact">問い合わせ</a>
     </div>
-    <div class="reserve-note">受付：17:00–23:00</div>
+    <div class="reserve-note">受付：営業時間に準ずる</div>
   </div>
 </aside>
 
