@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="落ち着いた個人店の飲食店ホームページ。店舗紹介、こだわり、メニュー、営業時間、アクセス、問い合わせ。" />
+  <meta name="description" content="落ち着いた個人店の飲食店ホームページ。店舗紹介、こだわり、メニュー、アクセス、問い合わせ。" />
   <title>海鮮小料理屋　魚心｜旨い魚と日本酒の店</title>
   <style>
     :root{
@@ -72,7 +72,25 @@
   right: 24px;
   top: 28px;
   z-index: 1001;
+  font-size: 24px;
+
 }
+
+.sns-links{
+  display: flex;
+  gap: 16px;
+}
+
+.sns-links a{
+  color: #333;
+  font-size: 20px;
+  transition: opacity .2s ease;
+}
+
+.sns-links a:hover{
+  opacity: 0.6;
+}
+
     .brand{
       display:flex; flex-direction:column; gap:2px;
       min-width: 210px;
@@ -110,7 +128,32 @@
     }
 
 
-    /* Hero */
+/* Hero（写真は画面いっぱい） */
+
+.insta-section{
+  max-width: 900px;
+  margin: 24px auto 40px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.insta-section blockquote{
+  margin: 0 auto 16px;
+}
+
+.insta-cta a{
+  display: inline-block;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 4px;
+}
+
+.insta-cta a:hover{
+  color: var(--text);
+}
+
     .hero{
       padding: 44px 0 26px;
     }
@@ -323,13 +366,41 @@
       font-size: 12px;
     }
 
+/* 外観写真 */
+.shop-photo{
+  margin: 0;
+}
+
+.shop-photo img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #111;
+}
+
+.shop-photo figcaption{
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+
+
     /* Footer */
     footer{
       border-top: 1px solid var(--line);
-      padding: 22px 0;
+      padding: 22px 24px;   /* ← 0 を 24px に */
       color: var(--muted);
       font-size: 12px;
     }
+
+footer .container > div{
+  text-align: center;
+  width: 100%;
+}
+
 
     /* Responsive */
     @media (max-width: 860px){
@@ -505,42 +576,104 @@
   border-bottom-color: rgba(217,195,162,.55); /* アクセントがあれば */
 }
 
+.ig-embed{
+  margin: 14px auto 0;
+  padding: 0 24px;        /* 画面いっぱいはやりすぎ→ほどよい余白 */
+  max-width: 1200px;      /* 本文より少し広めにしたければ 1200 */
+}
+
+.ig-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.ig-cta{
+  margin-top: 10px;
+  text-align: right;
+}
+
+@media (max-width: 768px){
+  .ig-grid{ grid-template-columns: 1fr; }
+}
+
+
   </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
+
+<script async src="https://www.instagram.com/embed.js"></script>
+
 <body>
  <header>
   <div class="container">
     <div class="nav">
       <a class="brand" href="#top" aria-label="ページ先頭へ">
         <div class="name">魚心</div>
-        <div class="tag">旨い魚を適正価格で、心ゆく迄味わい尽くす。</div>
-      </a>
+           </a>
 
       <nav class="main-nav" aria-label="ページ内ナビゲーション">
         <ul>
           <li><a href="#about">店舗紹介</a></li>
           <li><a href="#policy">店長のこだわり</a></li>
           <li><a href="#menu">メニュー</a></li>
-          <li><a href="#hours">営業時間</a></li>
           <li><a href="#access">アクセス</a></li>
           <li><a href="#contact">問い合わせ</a></li>
         </ul>
       </nav>
 
-	<div class="social social--header" aria-label="SNSリンク">
-        <span class="social-label">Follow us!!</span>
+      <div class="social social--header" aria-label="SNSリンク">
+      <span class="social-label">Follow us!!</span>
         <a class="social-link"
            href="https://www.instagram.com/uosin.yokohama?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
            target="_blank" rel="noopener noreferrer"
-           aria-label="Instagram（別タブで開く）">IG</a>
+           aria-label="Instagram（別タブで開く）">
+<i class="fa-brands fa-instagram"></i>
+        </a>
         <a class="social-link"
            href="https://www.facebook.com/yokohama.uosin/photos"
            target="_blank" rel="noopener noreferrer"
-           aria-label="Facebook（別タブで開く）">FB</a>
+           aria-label="Facebook（別タブで開く）">
+ <i class="fa-brands fa-facebook-f"></i>
+        </a>
       </div>
     </div>
   </div>
 </header>
+
+<section class="ig-embed" aria-label="Instagram">
+  <h2 class="section-title">Instagram</h2>
+
+  <div class="ig-grid">
+    <blockquote class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/p/CtYzkfHygnP/"
+      data-instgrm-version="14"
+      style="background:#fff; border:0; margin:0; padding:0; width:100%;">
+    </blockquote>
+
+    <blockquote class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/p/CCkxnmjgulq/"
+      data-instgrm-version="14"
+      style="background:#fff; border:0; margin:0; padding:0; width:100%;">
+    </blockquote>
+
+    <blockquote class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/p/DRsqv-ek881/"
+      data-instgrm-version="14"
+      style="background:#fff; border:0; margin:0; padding:0; width:100%;">
+    </blockquote>
+  </div>
+
+  <div class="ig-cta">
+    <a class="btn" href="https://www.instagram.com/uosin.yokohama/" target="_blank" rel="noopener noreferrer">
+      Instagramで見る →
+    </a>
+  </div>
+</section>
+
+
 
   <div id="top" class="hero">
     <div class="container">
@@ -712,56 +845,49 @@
       </div>
     </section>
 
-    <!-- 営業時間 -->
-    <section id="hours" class="card section">
-      <h2>営業時間</h2>
-      <p class="sub">混雑時はお待ちいただく場合がございます。ご来店前のご連絡も歓迎です。</p>
-
-      <div class="grid">
-        <div class="box">
-          <h3>ランチ</h3>
-          <p>11:30 – 14:30（L.O. 14:00）</p>
-          <div class="hr"></div>
-          <h3>ディナー</h3>
-          <p>17:30 – 21:30（L.O. 21:00）</p>
-        </div>
-        <div class="box">
-          <h3>定休日</h3>
-          <p>火曜日（祝日の場合は営業、翌日休み）</p>
-          <div class="hr"></div>
-          <h3>備考</h3>
-          <p>臨時休業はSNSまたは店頭掲示でお知らせします。</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- アクセス -->
+     <!-- アクセス -->
     <section id="access" class="card section">
       <h2>アクセス</h2>
       <p class="sub">最寄駅から徒歩3分。迷ったらお気軽にお電話ください。</p>
 
       <div class="grid">
-        <div class="box">
-          <h3>所在地</h3>
-          <p>
-            神奈川県横浜市神奈川区六角橋1-8-2<br>
-            東急東横線：白楽駅 徒歩3分 175m
-          </p>
-          <div class="hr"></div>
-          <h3>目印</h3>
-          <p>◯◯交差点近く／◯◯ビル1F（看板は小さめです）</p>
-        </div>
+  <!-- 左：外観写真 -->
+  <div class="box">
+    <h3>外観</h3>
+
+    <figure class="shop-photo">
+      <img src="photo2.png" alt="海鮮小料理屋 魚心の外観">
+      <figcaption>六角橋商店街の一角にあります</figcaption>
+    </figure>
+  </div>
+
+  <!-- 右：地図 -->
+  <div class="box">
+    <h3>地図</h3>
+    <div class="map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=..."
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    <div class="note">
+      白楽駅徒歩３分（約200m）
+      白楽駅から六角橋商店街を下り、カトレア薬局を右折してすぐ。
+    </div>
+  </div>
+</div>
+
 
         <div class="box">
           <h3>地図</h3>
           <div class="map" role="img" aria-label="Googleマップ">
             <!-- ここはお店の住所/地図URLに差し替えてください -->
-          <iframe
-           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.6430829995675!2d139.62389901188254!3d35.48837367253594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185f709d39c133%3A0x3a8c56657a5f4241!2z6a2a5b-D!5e0!3m2!1sja!2sjp!4v1765792516623!5m2!1sja!2sjp" width="600" height="450" style="border:0;"
-           allowfullscreen=""
-           loading="lazy"
-           referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+<iframe
+  src="https://www.google.com/maps?q=海鮮小料理屋+魚心+神奈川区+六角橋&output=embed"
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
           </div>
           <div class="note">白楽駅から六角橋商店街を下り、カトレア薬局を右折してすぐ。</div>
         </div>
@@ -827,31 +953,21 @@
       <div>© <span id="y"></span> 魚心. All rights reserved.</div>
     </div>
     <div class="social" aria-label="SNSリンク">
-  <a class="social-link" href="https://www.instagram.com/uosin.yokohama?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">IG</a>
-  <a class="social-link" href="https://www.facebook.com/yokohama.uosin/photos" target="_blank" rel="noopener noreferrer">FB</a>
+  <a class="social-link" href="https://www.instagram.com/uosin.yokohama?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+  <i class="fa-brands fa-instagram"></i>
+</a>
+  <a class="social-link" href="https://www.facebook.com/yokohama.uosin/photos" target="_blank" rel="noopener noreferrer">
+  <i class="fa-brands fa-facebook-f"></i>
+</a>
 </div>
      <a class="quiet-link" href="jobs.html">採用情報（アルバイト）</a>
 
   </footer>
-
-  <script>
+ <script>
     // 年号のみ自動更新（軽量）
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
-  <!-- 予約：常に表示する固定ボックス -->
-<aside class="reserve-float" aria-label="予約">
-  <div class="reserve-card">
-    <div class="reserve-title">ご予約はこちら</div>
-    <div class="reserve-text">
-      席数が少ないため、事前のご連絡がおすすめです。
-    </div>
-    <div class="reserve-actions">
-      <a class="reserve-btn primary" href="tel:【電話番号】">電話する</a>
-      <a class="reserve-btn" href="#contact">問い合わせ</a>
-    </div>
-    <div class="reserve-note">受付：営業時間に準ずる</div>
-  </div>
-</aside>
+
 
 </body>
 </html>
