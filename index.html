@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="落ち着いた個人店の飲食店ホームページ。店舗紹介、こだわり、メニュー、アクセス、問い合わせ。" />
+  <meta name="description" content="落ち着いた個人店の飲食店ホームページ。こだわり、メニュー、アクセス、お問い合わせ。" />
   <title>海鮮小料理屋　魚心｜旨い魚と日本酒の店</title>
   <style>
     :root{
@@ -128,7 +128,7 @@
     }
     .brand .name{
       font-family: var(--serif);
-      font-size: 18px;
+      font-size: 32px;
       letter-spacing:.08em;
     }
     .brand .tag{
@@ -243,7 +243,7 @@
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 16px;
       letter-spacing:.14em;
       text-transform: uppercase;
     }
@@ -295,12 +295,12 @@
       padding: 14px 14px;
       background: rgba(233,230,223,.03);
     }
-    .mini .label{ font-size:12px; color: var(--muted); letter-spacing:.08em; }
-    .mini .value{ margin-top:6px; font-size:14px; }
+    .mini .label{ font-size:16px; color: var(--muted); letter-spacing:.08em; }
+    .mini .value{ margin-top:6px; font-size:16px; }
     .mini a{ color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 
     /* Sections */
-    main{ padding: 14px 0 64px; }
+    main{ padding: 0px 0 64px; }
     section{ scroll-margin-top: 80px; }
     .section{
       margin-top: 18px;
@@ -315,7 +315,7 @@
     .sub{
       color: var(--muted);
       margin: -6px 0 14px;
-      font-size: 13px;
+      font-size: 16px;
     }
     .grid{
       display:grid;
@@ -386,14 +386,14 @@
       text-align:left;
       border-bottom:1px solid var(--line);
       vertical-align: middle;
-      font-size: 14px;
+      font-size: 16px;
     }
 
 
     .menu tr:last-child td{ border-bottom:none; }
     .note{
       color: var(--muted);
-      font-size: 12px;
+      font-size: 14px;
       margin-top: 10px;
     }
 
@@ -408,44 +408,82 @@
     }
     iframe{ width:100%; height: 320px; border:0; }
 
-    /* Contact */
-    form{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top: 8px;
-    }
-    .full{ grid-column: 1 / -1; }
-    label{
-      display:block;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 6px;
-      letter-spacing:.06em;
-    }
-    input, textarea{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 12px;
-      border:1px solid var(--line);
-      background: rgba(233,230,223,.03);
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-    }
-    textarea{ min-height: 130px; resize: vertical; }
-    input:focus, textarea:focus{
-      border-color: rgba(217,195,162,.45);
-      box-shadow: 0 0 0 4px rgba(217,195,162,.10);
-    }
-    .contact-actions{
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-      margin-top: 10px;
-    }
-    .hint{
-      color: var(--muted);
-      font-size: 12px;
-    }
+/* Contact（formは残してOK） */
+form{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+  margin-top: 8px;
+}
+
+/* TEL行：番号＋アイコンを横並びにする */
+.contact-tel-line{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 6px 0 14px;
+}
+
+/* TEL */
+.contact-tel-label{
+  font-size: 16px;
+  letter-spacing: .3em;
+  color: var(--muted);
+  margin-right: 0; /* gapで間隔を取るので不要 */
+}
+
+/* 電話番号（主役） */
+.contact-tel-number{
+  font-family: var(--serif);
+  font-size: 32px;          /* PC */
+  letter-spacing: .14em;
+  color: var(--text);
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+/* 電話アイコン（追加） */
+.contact-tel-icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(233,230,223,.06);
+  color: var(--text);
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+.contact-tel-icon:hover{
+  background: rgba(217,195,162,.18);
+}
+
+/* 補足 */
+.contact-tel-note{
+  display: block;
+  width: 100%;        /* ← flexの次の行に落として読みやすく */
+  font-size: 16px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* スマホ：番号は少し小さく、アイコンは押しやすく */
+@media (max-width: 560px){
+  .contact-tel-number{
+    font-size: 24px;
+    letter-spacing: .1em;
+  }
+  .contact-tel-icon{
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+}
+
 
 /* 外観写真：地図と同じ高さに揃える */
 .shop-photo{
@@ -512,7 +550,7 @@ footer .container > div{
       .btn{ transition:none; }
     }
     .notice{
-  margin-top: 32px;
+  margin-top: 0px;
   padding: 18px 20px;
   border: 1px solid #333;
   background: #151515;
@@ -520,17 +558,15 @@ footer .container > div{
 }
 
 .notice-head{ margin-bottom: 10px; }
-
 .notice-title{
-  margin: 0 0 4px;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: .08em;
+  font-family: var(--serif);
+  font-size: 20px;          /* section h2 と同じ */
+  letter-spacing: .06em;
 }
 
 .notice-sub{
   margin: 0;
-  font-size: 12px;
+  font-size: 16px;
   color: #aaa;
 }
 
@@ -554,14 +590,14 @@ footer .container > div{
 }
 
 .notice-date{
-  font-size: 12px;
+  font-size: 16px;
   color: #aaa;
   letter-spacing: .06em;
   white-space: nowrap;
 }
 
 .notice-text{
-  font-size: 14px;
+  font-size: 16px;
 }
 
 /* ★ここが「最大3件表示＋スクロール」の肝 */
@@ -576,67 +612,6 @@ footer .container > div{
 @media (max-width: 560px){
   .notice-item{ grid-template-columns: 1fr; }
 }
-    /* ===== 予約：常に表示（PCは右側固定 / スマホは下固定） ===== */
-
-.reserve-float{
-  position: fixed;
-  right: 20px;
-  bottom: 20px;   /* ← ここがポイント */
-  top: auto;      /* ← 上指定を無効化 */
-  z-index: 1000;
-  width: 280px;
-}
-
-.reserve-card{
-  border: 1px solid #333;
-  background: #151515;
-  border-radius: 12px;
-  padding: 14px 14px;
-}
-
-.reserve-title{
-  font-family: var(--serif);
-  font-size: 24px;
-  letter-spacing: .2em;
-  color: #e9e6df;
-  margin-bottom: 8px;
-}
-
-.reserve-text{
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: #aaa;
-}
-
-.reserve-actions{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.reserve-btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 12px;
-  border-radius: 999px;
-  border: 1px solid #333;
-  background: #111;
-  color: #eee;
-  font-size: 13px;
-}
-
-.reserve-btn.primary{
-  border-color: rgba(217,195,162,.45);
-  background: rgba(217,195,162,.12);
-}
-
-.reserve-note{
-  font-size: 14px;
-  color: #888;
-}
-
 /* ④ 予約ボックスを少し浮かせる影（控えめ） */
 .reserve-card{
   box-shadow: 0 8px 20px rgba(0,0,0,.35);
@@ -722,6 +697,7 @@ footer .container > div{
 
       <nav class="main-nav" aria-label="ページ内ナビゲーション">
         <ul>
+          <li><a href="#news">お知らせ</a></li>
           <li><a href="#policy">魚心のこだわり</a></li>
           <li><a href="#menu">メニュー</a></li>
           <li><a href="#access">アクセス</a></li>
@@ -794,14 +770,15 @@ footer .container > div{
           <div class="hero-actions">
             <a class="btn primary" href="#menu">メニューを見る</a>
             <a class="btn" href="#access">アクセス</a>
-            <a class="btn" href="#contact">問い合わせ</a>
+            <a class="btn" href="#contact">お問い合わせ</a>
           </div>
         </div>
 
         <aside class="card hero-side" aria-label="店舗情報サマリー">
           <div class="mini">
             <div class="label">住所</div>
-            <div class="value">〒221-0802  神奈川県横浜市神奈川区六角橋1-8-2</div>
+            <div class="value">〒221-0802<br>
+ 神奈川県横浜市神奈川区六角橋1-8-2</div>
           </div>
           <div class="mini">
             <div class="label">営業時間</div>
@@ -963,53 +940,34 @@ footer .container > div{
 
     <!-- 問い合わせ -->
     <section id="contact" class="card section">
-      <h2>問い合わせ</h2>
-      <p class="sub">ご予約・貸切・アレルギー等、お気軽にご連絡ください。</p>
+      <h2>お問い合わせ</h2>
+<p class="contact-tel-line">
+  <span class="contact-tel-label">TEL</span>
 
-      <!--
-        GitHub Pages はサーバーサイドがないため、フォーム送信の受け皿が必要です。
-        1) 簡単：mailto（メール起動）
-        2) 実運用：Formspree / Googleフォーム / 無料フォームサービス 等
-        ここでは「mailto」を既定にしています。
-      -->
-      <div class="grid">
-        <div class="box">
-          <h3>連絡先</h3>
-          <p>
-            電話：045-423-6464（受付：営業時間に準ずる）<br>
-            メール：<a href="mailto:example@example.com">example@example.com</a>
-          </p>
-          <div class="hr"></div>
-          <p class="note">
-            ※ 営業中は電話に出られない場合があります。メールもご活用ください。
-          </p>
-        </div>
+  <a href="tel:045-423-6464" class="contact-tel-number">
+    045-423-6464
+  </a>
 
-        <div class="box">
-          <h3>フォーム（簡易）</h3>
-          <form action="mailto:example@example.com" method="post" enctype="text/plain">
-            <div>
-              <label for="name">お名前</label>
-              <input id="name" name="name" autocomplete="name" placeholder="例：山田 太郎" />
-            </div>
-            <div>
-              <label for="tel">電話番号</label>
-              <input id="tel" name="tel" autocomplete="tel" placeholder="例：090-1234-5678" />
-            </div>
-            <div class="full">
-              <label for="email">メールアドレス</label>
-              <input id="email" name="email" type="email" autocomplete="email" placeholder="例：taro@example.com" />
-            </div>
-            <div class="full">
-              <label for="message">お問い合わせ内容</label>
-              <textarea id="message" name="message" placeholder="ご予約希望日時、人数、ご要望など"></textarea>
-            </div>
-            <div class="full contact-actions">
-              <button class="btn primary" type="submit">メールで送信（メールアプリが開きます）</button>
-              <span class="hint">※ フォーム送信をWeb完結にしたい場合は Formspree 等に差し替えがおすすめです。</span>
-            </div>
-          </form>
-        </div>
+  <a href="tel:045-423-6464"
+     class="contact-tel-icon"
+     aria-label="電話をかける">
+    <i class="fa-solid fa-phone"></i>
+  </a>
+
+  <span class="contact-tel-note">（受付：営業時間に準ずる）</span>
+</p>
+<p>
+    お電話、またはInstagramのDMよりお気軽にご連絡ください。<br>
+    ご予約・貸切のご相談、アレルギー等のご相談も承っております。
+  </p>
+
+  <a class="btn" 
+     href="https://www.instagram.com/uosin.yokohama/" 
+     target="_blank" 
+     rel="noopener noreferrer">
+    Instagramへ
+  </a>
+</div>
       </div>
     </section>
 
