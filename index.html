@@ -66,14 +66,45 @@
   position: static;
 }
 
-/* ヘッダーのSNSだけ固定（必ず“後ろ”に書く） */
-.social.social--header{
+/* ヘッダー電話番号（右上固定） */
+.header-tel{
   position: fixed;
   right: 24px;
-  top: 28px;
   z-index: 1001;
-  font-size: 24px;
+}
 
+.header-tel a{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-decoration: none;
+  color: var(--text);
+}
+
+/* TELラベル */
+.header-tel .tel-label{
+  font-size: 10px;
+  letter-spacing: .3em;
+  color: var(--muted);
+}
+
+/* 電話番号本体 */
+.header-tel .tel-number{
+  font-family: var(--serif);
+  font-size: 32px;       /* ← 大きさはここ */
+  letter-spacing: .12em;
+  line-height: 1.2;
+}
+
+@media (max-width: 860px){
+  .header-tel{
+    top: 16px;
+    right: 16px;
+  }
+
+  .header-tel .tel-number{
+    font-size: 16px;
+  }
 }
 
 .sns-links{
@@ -129,6 +160,36 @@
 
 
 /* Hero（写真は画面いっぱい） */
+
+.ig-title{
+  font-family: var(--serif);     /* ← ここが効く */
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-align: left;              /* 左寄せのままが渋い */
+  margin: 10px 0 18px;
+}
+
+.ig-title .lead{
+  display: block;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: #ffffff;              /* ここだけ白を強める */
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.ig-title span{
+  display: block;
+  margin-top: 6px;
+  font-family: var(--serif);
+  font-size: 16px;          /* PC: 16〜17が見やすい */
+  line-height: 1.95;         /* 明朝は広めが読みやすい */
+  letter-spacing: 0.02em;   /* 広げすぎない（0〜0.03） */
+  color: --var(muted);              /* 真っ黒を避ける */
+}
 
 .insta-section{
   max-width: 900px;
@@ -285,37 +346,57 @@
     }
 
     /* Menu table */
-    .menu{
-      width:100%;
-      border-collapse: collapse;
-      overflow:hidden;
-      border-radius: 14px;
-      border:1px solid var(--line);
-    }
-    .menu th, .menu td{
+/* 共通 */
+.menu{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: none;         /* ←ここ重要 */
+  border-radius: 0;     /* ←ここ重要 */
+  margin: 0;
+  background: transparent;
+}
+
+
+/* メニュー：中身だけスクロールさせる */
+.menu-scroll{
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(233,230,223,.03); /* 任意：段差が消えて落ち着く */
+
+  /* ① ページ側へのスクロール伝播（ちょっと上に動く）を止める */
+  overscroll-behavior: contain;
+
+  /* ② スクロール枠として確実に扱わせる */
+  -webkit-overflow-scrolling: touch;
+
+  /* ③ タッチ操作時に“ここは縦スクロール”を明示（スマホ/Chrome対策） */
+  touch-action: pan-y;
+}
+
+/* メニュー直前の説明文 */
+#menu .sub{
+  margin-bottom: 6px;   /* ← ここを詰める（0〜12pxで調整） */
+}
+    .menu td{
       padding: 12px 12px;
+     line-height: 1.6; /* 念のため安定 */
       text-align:left;
       border-bottom:1px solid var(--line);
-      vertical-align: top;
+      vertical-align: middle;
       font-size: 14px;
     }
-    .menu th{
-      color: var(--muted);
-      font-weight: 600;
-      background: rgba(233,230,223,.04);
-      letter-spacing:.06em;
-    }
+
+
     .menu tr:last-child td{ border-bottom:none; }
-    .price{
-      white-space:nowrap;
-      color: var(--text);
-      font-variant-numeric: tabular-nums;
-    }
     .note{
       color: var(--muted);
       font-size: 12px;
       margin-top: 10px;
     }
+
 
     /* Access map embed */
     .map{
@@ -366,25 +447,38 @@
       font-size: 12px;
     }
 
-/* 外観写真 */
+/* 外観写真：地図と同じ高さに揃える */
 .shop-photo{
   margin: 0;
 }
 
+/* 写真の“枠”を地図（320px）に合わせる */
 .shop-photo img{
   width: 100%;
-  height: auto;
+  height: 320px;          /* ← 地図に合わせる */
+  object-fit: cover;      /* ← 枠に収めつつ切り抜き */
+  object-position: center;/* ← 中央基準で切る */
   display: block;
   border-radius: 12px;
   border: 1px solid var(--line);
   background: #111;
 }
 
-.shop-photo figcaption{
-  margin-top: 8px;
-  font-size: 12px;
+
+/* アクセス：写真・地図下のコメント */
+.access-caption{
+  margin-top: 10px;
+  font-size: 16px;       /* ← ここでサイズUP（12→14） */
+  line-height: 1.7;      /* ← 行間を広げて読みやすく */
   color: var(--muted);
-  letter-spacing: .06em;
+  letter-spacing: .04em;
+}
+
+/* スマホではさらに少し大きく */
+@media (max-width: 560px){
+  .access-caption{
+    font-size: 15px;
+  }
 }
 
 
@@ -598,6 +692,18 @@ footer .container > div{
   .ig-grid{ grid-template-columns: 1fr; }
 }
 
+/* 予約Boxを常に最前面に */
+.reserve-float{
+  z-index: 9999;           /* ← 1000→大きく */
+}
+
+/* iframe（地図）が前面に来てしまう環境対策 */
+.map, iframe{
+  position: relative;
+  z-index: 1;
+}
+
+
 
   </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -616,35 +722,33 @@ footer .container > div{
 
       <nav class="main-nav" aria-label="ページ内ナビゲーション">
         <ul>
-          <li><a href="#about">店舗紹介</a></li>
-          <li><a href="#policy">店長のこだわり</a></li>
+          <li><a href="#policy">魚心のこだわり</a></li>
           <li><a href="#menu">メニュー</a></li>
           <li><a href="#access">アクセス</a></li>
           <li><a href="#contact">問い合わせ</a></li>
         </ul>
       </nav>
 
-      <div class="social social--header" aria-label="SNSリンク">
-      <span class="social-label">Follow us!!</span>
-        <a class="social-link"
-           href="https://www.instagram.com/uosin.yokohama?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Instagram（別タブで開く）">
-<i class="fa-brands fa-instagram"></i>
-        </a>
-        <a class="social-link"
-           href="https://www.facebook.com/yokohama.uosin/photos"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Facebook（別タブで開く）">
- <i class="fa-brands fa-facebook-f"></i>
-        </a>
-      </div>
+<div class="header-tel" aria-label="電話番号">
+  <a href="tel:045-423-6464">
+    <span class="tel-label">TEL</span>
+    <span class="tel-number">045-423-6464</span>
+  </a>
+</div>
+  
     </div>
   </div>
 </header>
 
 <section class="ig-embed" aria-label="Instagram">
-  <h2 class="section-title">Instagram</h2>
+  <h2 class="ig-title">-海鮮小料理屋　魚心とは-
+<strong class="lead">「”おいしさに感動する”一皿を、”日常的に”お届けしたい」</strong>
+<span>その想いから、当店で扱う魚はすべて店主自ら早朝・未明に市場に赴き、自らの目で選び、仕入れております。<br>
+真空や冷凍のお魚をお出しすることは一切ありません。その分、大衆系の居酒屋さんより少々お値段は張りますが、<br>
+それでも、空間づくり、盛り付け、一口目の驚き、お食事中のサービス、食後の余韻まで含めて<br>
+「このお店にして良かった」と思っていただける価値を誠実にお届けします。<br>
+皆様のご来店と当店のお魚を堪能いただいた後の笑顔を心よりお待ちしております。</span>
+</h2>
 
   <div class="ig-grid">
     <blockquote class="instagram-media"
@@ -724,16 +828,6 @@ footer .container > div{
       <!-- ★新しいお知らせは、必ず“上”に追加していく運用にしてください -->
       <li class="notice-item">
         <time class="notice-date">【日付】</time>
-        <span class="notice-text">【お知らせ内容（例：◯月◯日は臨時休業します）】</span>
-      </li>
-
-      <li class="notice-item">
-        <time class="notice-date">【日付】</time>
-        <span class="notice-text">【お知らせ内容（例：季節限定メニューを始めました）】</span>
-      </li>
-
-      <li class="notice-item">
-        <time class="notice-date">【日付】</time>
         <span class="notice-text">【お知らせ内容（例：営業時間を一部変更しています）】</span>
       </li>
 
@@ -744,104 +838,91 @@ footer .container > div{
     </ul>
   </div>
 </section>
-    <!-- 店舗紹介 -->
-    <section id="about" class="card section">
-      <h2>店舗紹介</h2>
-      <p class="sub">ゆっくり食事を楽しめる、小さな個人店です。</p>
+    <!-- こだわり -->
+    <section id="policy" class="card section">
+      <h2>魚心のこだわり</h2>
+      <p class="sub">適正な価格で、金額以上の”美味しさ”だけではない”体験”をご堪能ください</p>
+
       <div class="grid">
         <div class="box">
-          <h3>コンセプト</h3>
-          <p>
-            「毎日通える味」と「静かな居心地」。派手さよりも、丁寧さを大切にしています。
-            おひとり様、仕事帰り、休日の遅めのランチにもどうぞ。
+          <h3>お刺身・お魚</h3>
+          <p>お刺身を堪能いただけるように、しっかり食べ応えのある厚さで提供します。<br>
+冷凍・真空は使用せず、店長自ら仕入れたお魚を、<br>
+産地とともにご紹介しご提供します。
+          </p>
+        </div>
+        <div class="box">
+          <h3>盛り付け</h3>
+          <p>お刺身の色合い、肉厚さ、存在感を存分に味わえる盛り付けを心掛けています。<br>
+店主自ら買い付けたお皿を、ご提供する品物に応じて組み合わせ、<br>
+つい写真に納めてしまいたくなるような視覚的な感動を与えます。
+          </p>
+        </div>
+        <div class="box">
+          <h3>日本酒</h3>
+          <p>常時日本全国から10種類近いラインナップを取り揃えております。<br>
+時にはシリアルナンバー入りのレア酒をお取り扱うこともあります。<br>
+ご相談いただければお好みに合うお酒をおすすめいたします。
           </p>
         </div>
         <div class="box">
           <h3>店内</h3>
-          <p>
-            カウンター席／テーブル席。香りが立ちすぎない換気と、会話を邪魔しない明るさを意識しています。
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- こだわり -->
-    <section id="policy" class="card section">
-      <h2>店長のこだわり</h2>
-      <p class="sub">「何を足すか」より「何を削るか」。素材に合わせて整えます。</p>
-
-      <div class="grid">
-        <div class="box">
-          <h3>だし・火入れ</h3>
-          <p>
-            だしは毎朝引き、塩味は控えめに。火入れは「香り」と「食感」の境目を狙います。
-          </p>
-        </div>
-        <div class="box">
-          <h3>季節の小皿</h3>
-          <p>
-            旬の野菜を中心に、週替わりの小皿をご用意。食べ疲れしない構成を意識しています。
-          </p>
-        </div>
-        <div class="box">
-          <h3>米・味噌汁</h3>
-          <p>
-            お米は炊き上がりの香りを重視。味噌汁は具材ごとに味噌を使い分けています。
-          </p>
-        </div>
-        <div class="box">
-          <h3>心地よさ</h3>
-          <p>
-            料理が主役になるよう、BGMや照明は控えめに。慌ただしさのない時間を大切にしています。
+          <p>皆様が心ゆくまでお食事とお連れ様との会話を楽しんでいただけるよう、<br>
+黒を基調とした落ち着いた雰囲気で、穏やかな照明のもと、BGMにはジャズを、<br>
+テーブル席はお隣のお席と、すだれによる仕切りで半個室空間を提供しています<br>
           </p>
         </div>
       </div>
     </section>
 
     <!-- メニュー -->
-    <section id="menu" class="card section">
-      <h2>メニュー</h2>
-      <p class="sub">価格は税込の目安です。仕入れにより内容が変わる場合があります。</p>
+<section id="menu" class="card section">
+  <h2>メニュー</h2>
+  <p class="sub">お刺身・盛り合わせは仕入れ状況により金額が変動いたします。</p>
 
-      <table class="menu" aria-label="メニュー一覧">
-        <thead>
+  <!-- ボディ専用（スクロール） -->
+  <div class="menu-scroll">
+    <table class="menu menu-body" aria-label="メニュー一覧">
+      <tbody>
           <tr>
-            <th style="width:26%">カテゴリ</th>
-            <th>内容</th>
-            <th style="width:16%">価格</th>
-          </tr>
-        </thead>
-        <tbody>
+            <td>お刺身</td>
+            <td>5点盛り（魚種は仕入れによって変動します）</td>
+           </tr>
           <tr>
-            <td>定食</td>
-            <td>本日の焼き魚定食（小鉢・味噌汁・ごはん）</td>
-            <td class="price">¥1,200</td>
+            <td>お刺身</td>
+            <td>7点盛り（魚種は仕入れによって変動します）</td>
           </tr>
           <tr>
-            <td>定食</td>
-            <td>鶏の照り焼き定食（小鉢・味噌汁・ごはん）</td>
-            <td class="price">¥1,100</td>
+            <td>お刺身</td>
+            <td>豪華お任せ盛り（要予約・ご予算に応じて調整します）</td>
+　　　　　</tr>
+          <tr>
+            <td>お刺身</td>
+            <td>単品（地だこ、カンパチ、ハタ、赤貝など）</td>
           </tr>
           <tr>
-            <td>小皿</td>
-            <td>季節野菜の揚げ浸し</td>
-            <td class="price">¥450</td>
+            <td>定番</td>
+            <td>自家製出汁巻き玉子</td>
+            </tr>
+          <tr>
+            <td>定番</td>
+            <td>自家製さつま揚げ</td>
+	　</tr>
+          <tr>
+            <td>焼き魚</td>
+            <td>イワシ明太焼き</td>
           </tr>
           <tr>
-            <td>小皿</td>
-            <td>出汁巻き玉子</td>
-            <td class="price">¥500</td>
-          </tr>
-          <tr>
-            <td>ドリンク</td>
-            <td>自家製ほうじ茶／炭酸水／瓶ビール</td>
-            <td class="price">¥300〜</td>
+            <td>焼き魚</td>
+            <td>銀ダラの西京焼き</td>
           </tr>
         </tbody>
       </table>
-
+     </div>
       <div class="note">
-        ※ アレルギーや苦手食材がある場合は、できる範囲で調整します。お気軽にお声がけください。
+        ※ 上記メニューは一部です。ぜひご来店いただきゆっくりお選びください。<br>
+        ※ アレルギーや苦手食材は、お気軽にお声がけください。<br>
+        ※ お魚のほか、お肉やお野菜もの、デザートも取り揃えております。
       </div>
     </section>
 
@@ -857,7 +938,10 @@ footer .container > div{
 
     <figure class="shop-photo">
       <img src="photo2.png" alt="海鮮小料理屋 魚心の外観">
-      <figcaption>六角橋商店街の一角にあります</figcaption>
+     <figcaption class="access-caption">↑もう少し引きで今の写真。<br>
+魚心の看板と日本酒棚が目印です<br>
+初めての方には入りづらい佇まいですが、気楽にお入りください
+</figcaption>
     </figure>
   </div>
 
@@ -865,33 +949,19 @@ footer .container > div{
   <div class="box">
     <h3>地図</h3>
     <div class="map">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=..."
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.6181824069445!2d139.62460966188263!3d35.48898962253582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185f709d39c133%3A0x3a8c56657a5f4241!2z6a2a5b-D!5e0!3m2!1sja!2sjp!4v1766726430620!5m2!1sja!2sjp" width="600" height="450" style="border:0;"
+           allowfullscreen=""
+           loading="lazy"
+           referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
     </div>
-    <div class="note">
-      白楽駅徒歩３分（約200m）
-      白楽駅から六角橋商店街を下り、カトレア薬局を右折してすぐ。
+<div class="note access-caption">
+      白楽駅徒歩３分（約200m）<br>
+      白楽駅から六角橋商店街を下り、カトレア薬局を右折してすぐ
     </div>
   </div>
 </div>
 
-
-        <div class="box">
-          <h3>地図</h3>
-          <div class="map" role="img" aria-label="Googleマップ">
-            <!-- ここはお店の住所/地図URLに差し替えてください -->
-<iframe
-  src="https://www.google.com/maps?q=海鮮小料理屋+魚心+神奈川区+六角橋&output=embed"
-  loading="lazy"
-  referrerpolicy="no-referrer-when-downgrade">
-</iframe>
-          </div>
-          <div class="note">白楽駅から六角橋商店街を下り、カトレア薬局を右折してすぐ。</div>
-        </div>
-      </div>
     </section>
 
     <!-- 問い合わせ -->
