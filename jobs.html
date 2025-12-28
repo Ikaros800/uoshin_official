@@ -15,22 +15,34 @@
 
 </head>
 <body>
-
-<header>
+ <header>
   <div class="container">
     <div class="nav">
-      <a class="brand" href="index.html#top">
+      <a class="brand" href="#top" aria-label="ページ先頭へ">
         <div class="name">魚心</div>
-        <div class="tag">旨い魚を適正価格で、心ゆく迄味わい尽くす。</div>
-      </a>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html#about">店舗紹介</a></li>
-          <li><a href="index.html#menu">メニュー</a></li>
-          <li><a href="index.html#access">アクセス</a></li>
-          <li><a href="index.html#contact">問い合わせ</a></li>
-        </ul>
-      </nav>
+           </a>
+
+<nav class="main-nav" aria-label="ページ内ナビゲーション">
+  <ul>
+    <li><a href="#news">お知らせ</a></li>
+    <li><a href="#policy">魚心のこだわり</a></li>
+    <li><a href="#menu">メニュー</a></li>
+    <li><a href="#access">アクセス</a></li>
+    <li><a href="#contact">お問い合わせ</a></li>
+  </ul>
+</nav>
+
+<button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="header-tel" aria-label="電話番号">
+  <a href="tel:045-423-6464">
+    <span class="tel-label">TEL</span>
+    <span class="tel-number">045-423-6464</span>
+  </a>
+</div>
+  
     </div>
   </div>
 </header>
