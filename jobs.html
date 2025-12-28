@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <title>採用情報（アルバイト）｜魚心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="assets/common.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
   .jobs{
   max-width: 720px;
@@ -11,24 +14,23 @@
 }
 
 </style>
-<link rel="stylesheet" href="assets/common.css">
 
 </head>
 <body>
  <header>
   <div class="container">
     <div class="nav">
-      <a class="brand" href="#top" aria-label="ページ先頭へ">
+      <a class="brand" href="index.html#top" aria-label="ページ先頭へ">
         <div class="name">魚心</div>
            </a>
 
 <nav class="main-nav" aria-label="ページ内ナビゲーション">
   <ul>
-    <li><a href="#news">お知らせ</a></li>
-    <li><a href="#policy">魚心のこだわり</a></li>
-    <li><a href="#menu">メニュー</a></li>
-    <li><a href="#access">アクセス</a></li>
-    <li><a href="#contact">お問い合わせ</a></li>
+    <li><a href="index.html#news">お知らせ</a></li>
+    <li><a href="index.html#policy">魚心のこだわり</a></li>
+    <li><a href="index.html#menu">メニュー</a></li>
+    <li><a href="index.html#access">アクセス</a></li>
+    <li><a href="index.html#contact">お問い合わせ</a></li>
   </ul>
 </nav>
 
@@ -84,6 +86,11 @@
      <a class="quiet-link" href="jobs.html">採用情報（アルバイト）</a>
 
   </footer>
+<script src="assets/common.js" defer></script>
+<script>
+  const y = document.getElementById('y');
+  if (y) y.textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
