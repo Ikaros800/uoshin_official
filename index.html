@@ -747,6 +747,17 @@ form{
 
 
 /* ===== メニュー：逆再生アコーディオン ===== */
+.menu-summary{
+  all: unset;
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  width:100%;
+  padding:16px;
+  cursor:pointer;
+  font-family: var(--serif);
+}
+
 .menu-panel{
   overflow: hidden;
   height: 0;
@@ -756,23 +767,11 @@ form{
     height .36s ease,
     opacity .22s ease,
     transform .36s ease;
-  will-change: height;
 }
 
 .menu-group.is-open .menu-panel{
   opacity: 1;
   transform: translateY(0);
-}
-
-/* PCでは常時展開 */
-@media (min-width: 561px){
-  .menu-panel{
-    height: auto !important;
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-    overflow: visible !important;
-  }
 }
 /* PCでは「続きを読む」ボタンを表示しない */
 @media (min-width: 561px){
@@ -989,45 +988,49 @@ form{
 
  <div class="menu-acc" aria-label="メニュー一覧（カテゴリ別）">
 
-  <details class="menu-group">
-<summary>
-  <span class="menu-head">
-    <span class="menu-name">お刺身</span>
-    <span class="count">4</span>
-  </span>
-</summary> 
+  <div class="menu-group">
+<div class="menu-group">
+  <button class="menu-summary" type="button">
+    <span class="menu-head">
+      <span class="menu-name">お刺身</span>
+      <span class="count">4</span>
+    </span>
+  </button>
+
   <div class="menu-panel">
-   <ul class="menu-list">
+    <ul class="menu-list">
       <li>5点盛り（魚種は仕入れによって変動します）</li>
       <li>7点盛り（魚種は仕入れによって変動します）</li>
       <li>豪華お任せ盛り（要予約・ご予算に応じて調整します）</li>
       <li>単品（地だこ、カンパチ、ハタ、赤貝など）</li>
-</ul>
+    </ul>
+  </div>
 </div>
-  </details>
 
-  <details class="menu-group">
-<summary>
-  <span class="menu-head">
-    <span class="menu-name">定番</span>
-    <span class="count">2</span>
-  </span>
-</summary>
+<div class="menu-group">
+  <button class="menu-summary" type="button">
+    <span class="menu-head">
+      <span class="menu-name">定番</span>
+      <span class="count">2</span>
+    </span>
+  </button>
+
   <div class="menu-panel">
     <ul class="menu-list">
       <li>自家製出汁巻き玉子</li>
       <li>鯛と玉ねぎの自家製さつま揚げ</li>
     </ul>
+  </div>
 </div>
-  </details>
 
-  <details class="menu-group">
-<summary>
-  <span class="menu-head">
-    <span class="menu-name">一品もの</span>
-    <span class="count">5</span>
-  </span>
-</summary>
+<div class="menu-group">
+  <button class="menu-summary" type="button">
+    <span class="menu-head">
+      <span class="menu-name">一品もの</span>
+      <span class="count">5</span>
+    </span>
+  </button>
+
   <div class="menu-panel">
     <ul class="menu-list">
       <li>イワシ明太焼き</li>
@@ -1036,11 +1039,9 @@ form{
       <li>竹の子の土佐煮</li>
       <li>サメ軟骨使用！南高梅の梅水晶</li>
     </ul>
+  </div>
 </div>
-  </details>
-
 </div>
-
       <div class="note">
         ※ 上記メニューは一部です。ぜひご来店いただきゆっくりお選びください。<br>
         ※ アレルギーや苦手食材は、お気軽にお声がけください。<br>
@@ -1189,30 +1190,42 @@ form{
       btn.textContent = open ? '閉じる' : '続きを読む';
     });
   });
-// ===== メニュー：逆再生アコーディオン（スマホのみ） =====
+// ===== メニュー：逆再生アコーディオン（PC/スマホ共通） =====
 (function(){
-  if(!window.matchMedia('(max-width: 560px)').matches) return;
+  const groups = document.querySelectorAll('.menu-group');
+  if(!groups.length) return;
 
-  document.querySelectorAll('.menu-group').forEach(group => {
+  groups.forEach(group => {
     const summary = group.querySelector('summary');
     const panel   = group.querySelector('.menu-panel');
     if(!summary || !panel) return;
 
+    // 二重バインド防止
+    if(summary.dataset.accBound === '1') return;
+    summary.dataset.accBound = '1';
+
     // 初期状態
     if(group.open){
-      panel.style.height = panel.scrollHeight + 'px';
       group.classList.add('is-open');
+      panel.style.height = 'auto';
+      panel.style.opacity = '1';
+      panel.style.transform = 'translateY(0)';
     }else{
       panel.style.height = '0px';
     }
 
-    summary.addEventListener('click', e => {
-      e.preventDefault(); // ★これが超重要
+    // ★重要：pointerdownで標準トグルを潰す（ブラウザ差対策）
+    summary.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+    });
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
 
       const isOpen = group.open;
 
       if(!isOpen){
-        // ===== OPEN（下に降りる）=====
+        // OPEN
         group.open = true;
         group.classList.add('is-open');
 
@@ -1221,25 +1234,81 @@ form{
           panel.style.height = panel.scrollHeight + 'px';
         });
 
+        const onOpenEnd = (ev) => {
+          if(ev.propertyName !== 'height') return;
+          panel.style.height = 'auto';
+          panel.removeEventListener('transitionend', onOpenEnd);
+        };
+        panel.addEventListener('transitionend', onOpenEnd);
+
       }else{
-        // ===== CLOSE（上に吸い込まれる：逆再生）=====
-        const h = panel.scrollHeight;
-        panel.style.height = h + 'px';
+        // CLOSE（逆再生）
+        panel.style.height = panel.scrollHeight + 'px';
 
         requestAnimationFrame(() => {
           panel.style.height = '0px';
         });
 
-        panel.addEventListener('transitionend', function onEnd(e){
-          if(e.propertyName !== 'height') return;
+        const onCloseEnd = (ev) => {
+          if(ev.propertyName !== 'height') return;
           group.open = false;
           group.classList.remove('is-open');
-          panel.removeEventListener('transitionend', onEnd);
-        });
+          panel.removeEventListener('transitionend', onCloseEnd);
+        };
+        panel.addEventListener('transitionend', onCloseEnd);
       }
     });
   });
+
+  // リサイズ時：開いているpanelはautoに戻して自然高さを再計算
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.menu-group.is-open .menu-panel').forEach(panel => {
+      panel.style.height = 'auto';
+    });
+  });
 })();
+
+
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.menu-group.is-open .menu-panel').forEach(panel => {
+    panel.style.height = panel.scrollHeight + 'px';
+  });
+});
+
+document.querySelectorAll('.menu-group').forEach(group => {
+  const btn   = group.querySelector('.menu-summary');
+  const panel = group.querySelector('.menu-panel');
+  if(!btn || !panel) return;
+
+  panel.style.height = '0px';
+
+  btn.addEventListener('click', () => {
+    const isOpen = group.classList.contains('is-open');
+
+    if(!isOpen){
+      group.classList.add('is-open');
+      panel.style.height = panel.scrollHeight + 'px';
+
+      panel.addEventListener('transitionend', function openEnd(e){
+        if(e.propertyName !== 'height') return;
+        panel.style.height = 'auto';
+        panel.removeEventListener('transitionend', openEnd);
+      });
+
+    }else{
+      panel.style.height = panel.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        panel.style.height = '0px';
+      });
+
+      panel.addEventListener('transitionend', function closeEnd(e){
+        if(e.propertyName !== 'height') return;
+        group.classList.remove('is-open');
+        panel.removeEventListener('transitionend', closeEnd);
+      });
+    }
+  });
+});
 
 </script>
 <script src="assets/common.js" defer></script>
