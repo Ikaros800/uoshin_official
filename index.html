@@ -38,9 +38,7 @@
 
     /* Header / Nav */
     header{
-  font-family: var(--serif);
-}
-    header{
+      font-family: var(--serif);
       position:sticky; top:0; z-index:30;
       backdrop-filter: blur(10px);
       background: rgba(15,16,18,.72);
@@ -59,11 +57,6 @@
   display:flex;
   align-items:center;
   gap:10px;
-}
-
-/* ヘッダー以外は固定しない（フッターはそのまま） */
-.social:not(.social--header){
-  position: static;
 }
 
 /* ヘッダー電話番号（右上固定） */
@@ -330,7 +323,7 @@
     }
     .box h3{
       margin:0 0 8px;
-      font-size: 14px;
+      font-size: 18px;
       letter-spacing:.06em;
       color: var(--text);
     }
@@ -344,59 +337,6 @@
       height:1px; background: var(--line);
       margin: 14px 0;
     }
-
-    /* Menu table */
-/* 共通 */
-.menu{
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border: none;         /* ←ここ重要 */
-  border-radius: 0;     /* ←ここ重要 */
-  margin: 0;
-  background: transparent;
-}
-
-
-/* メニュー：中身だけスクロールさせる */
-.menu-scroll{
-  max-height: 220px;
-  overflow-y: auto;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: rgba(233,230,223,.03); /* 任意：段差が消えて落ち着く */
-
-  /* ① ページ側へのスクロール伝播（ちょっと上に動く）を止める */
-  overscroll-behavior: contain;
-
-  /* ② スクロール枠として確実に扱わせる */
-  -webkit-overflow-scrolling: touch;
-
-  /* ③ タッチ操作時に“ここは縦スクロール”を明示（スマホ/Chrome対策） */
-  touch-action: pan-y;
-}
-
-/* メニュー直前の説明文 */
-#menu .sub{
-  margin-bottom: 6px;   /* ← ここを詰める（0〜12pxで調整） */
-}
-    .menu td{
-      padding: 12px 12px;
-     line-height: 1.6; /* 念のため安定 */
-      text-align:left;
-      border-bottom:1px solid var(--line);
-      vertical-align: middle;
-      font-size: 16px;
-    }
-
-
-    .menu tr:last-child td{ border-bottom:none; }
-    .note{
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
 
     /* Access map embed */
     .map{
@@ -678,14 +618,430 @@ footer .container > div{
   z-index: 1;
 }
 
+@media (max-width: 560px){
+  .container{ width: calc(100% - 32px); }
+  .ig-embed{ padding: 0 16px; }
+
+  .header-tel{
+    display: none !important;
+    position: static !important;
+    right: auto !important;
+    top: auto !important;
+  }
+
+  .nav{
+    padding: 10px 0;
+    gap: 10px;
+  }
+
+  .brand{ min-width: auto; }
+  .brand .name{
+    font-size: 24px;
+    letter-spacing: .06em;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  nav a{
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+}
+
+/* ===== ハンバーガー（ここからは入れ子にしない！） ===== */
+.nav-toggle{
+  display: none;
+  background: none;
+  border: 0;
+  padding: 10px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-toggle span{
+  display:block;
+  width:26px;
+  height:2px;
+  background: var(--text);
+  margin:6px 0;
+  border-radius:999px;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+@media (max-width: 860px){
+  .main-nav{ display:none; }
+
+  .nav-toggle{
+    display:block;
+    margin-left:auto;
+    position:relative;
+    z-index:10001;
+  }
+
+  .main-nav.is-open{
+    display:block;
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    background:#0f1012;      /* 下を見せない */
+    padding:86px 24px 24px;
+    overflow-y:auto;
+  }
+
+  .main-nav.is-open ul{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+
+  .main-nav.is-open a{
+    display:block;
+    font-size:18px;
+    padding:12px 0;
+    color:var(--text);
+    border-bottom:1px solid rgba(233,230,223,.12);
+  }
+
+  .header-tel{ display:none !important; }
+}
+
+.nav-toggle.is-open span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2){ opacity:0; }
+.nav-toggle.is-open span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
+
+body.nav-open{ overflow:hidden; }
+
+/* ハンバーガーボタンを確実に押せるようにする */
+.nav-toggle{
+  pointer-events: auto;
+  position: relative;
+  z-index: 20002;
+}
+header{
+  position: sticky;
+  z-index: 20000;
+}
+/* ===== ハンバーガー：最前面で全画面を確実に覆う（上書き） ===== */
+@media (max-width: 860px){
+  /* これが“面”になる */
+  .main-nav.is-open{
+    display: block !important;
+    position: fixed !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100dvh;               /* iPhone対策 */
+    background: #0f1012;
+    z-index: 99999 !important;     /* とにかく最前面 */
+    padding: 86px 24px 24px;
+    overflow-y: auto;
+  }
+
+  /* 三本線ボタンも最前面で押せるように */
+  .nav-toggle{
+    position: relative;
+    z-index: 100000 !important;
+  }
+
+  /* headerのbackdrop-filterがfixedを邪魔することがあるので、開いてる間は切る */
+  body.nav-open header{
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ===== 1stビュー（スマホ）読みやすさ改善：上書き ===== */
+@media (max-width: 560px){
+
+  /* セクション全体：余白を少し詰めて、文字は左寄せで安定 */
+  .ig-embed{
+    padding: 0 14px;          /* 16→14で少し締める（好みで16でもOK） */
+    margin: 10px auto 18px;   /* 上下の空白を調整 */
+  }
+
+  /* 見出し（-海鮮小料理屋 魚心とは-） */
+  .ig-title{
+    font-size: 22px;          /* 30→22 */
+    letter-spacing: .10em;    /* .18→.10（広すぎると読みにくい） */
+    line-height: 1.35;
+    margin: 6px 0 12px;       /* タイトル周りの余白 */
+    text-align: left;
+  }
+
+  /* キャッチ（太字の1行） */
+  .ig-title .lead{
+    font-size: 16px;          /* 20→16 */
+    line-height: 1.65;
+    letter-spacing: .04em;    /* 0.06→0.04 */
+    font-weight: 700;
+    margin: 8px 0 10px;
+  }
+
+  /* 本文（span内） */
+  .ig-title span{
+    font-size: 14px;          /* 16→14（スマホの本文はこのくらいが読みやすい） */
+    line-height: 1.95;        /* 行間は広めに */
+    letter-spacing: .02em;    /* そのまま */
+    color: rgba(233,230,223,.80);  /* var(--muted)より少し明るくして可読性UP */
+    margin-top: 10px;
+  }
+}
+/* ===== 1stビュー：続きを読む ===== */
+@media (max-width: 560px){
+
+  .intro-text{
+    position: relative;
+    overflow: hidden;
+    transition: max-height .4s ease;
+  }
+
+  /* たたんだ状態（約4行分） */
+  .intro-text.is-collapsed{
+    max-height: 8.2em;
+  }
+
+  /* 下にフェードをかけて「続きがある感」 */
+  .intro-text.is-collapsed::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:3em;
+    background: linear-gradient(
+      to bottom,
+      rgba(15,16,18,0),
+      rgba(15,16,18,1)
+    );
+    pointer-events:none;
+  }
+
+  /* 展開時 */
+  .intro-text.is-open{
+    max-height: 1000px; /* 十分大きければOK */
+  }
+
+  /* 続きを読むボタン */
+  .readmore-btn{
+    margin-top: 8px;
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 13px;
+    letter-spacing: .12em;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .readmore-btn:hover{
+    color: var(--accent2);
+  }
+}
+
+/* ===== こだわりBox：続きを読む（スマホ） ===== */
+@media (max-width: 560px){
+
+  .box-text{
+    position: relative;
+    overflow: hidden;
+    transition: max-height .35s ease;
+  }
+
+  /* 約2行分 */
+  .box-text.is-collapsed{
+    max-height: 3.4em;
+  }
+
+  /* 下フェード */
+  .box-text.is-collapsed::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:1.6em;
+    background: linear-gradient(
+      to bottom,
+      rgba(15,16,18,0),
+      rgba(15,16,18,1)
+    );
+    pointer-events:none;
+  }
+
+  .box-text.is-open{
+    max-height: 500px;
+  }
+
+  /* ボタン */
+  .box-readmore{
+    margin-top: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: .1em;
+    cursor: pointer;
+  }
+
+  .box-readmore:hover{
+    color: var(--accent2);
+  }
+}
+/* ===== メニュー：UIを上品に（上書き） ===== */
+.menu-acc{
+  border: 1px solid rgba(233,230,223,.16);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.06));
+  overflow: hidden;
+}
+
+.menu-group{
+  border-top: 1px solid rgba(233,230,223,.12);
+}
+.menu-group:first-child{ border-top: none; }
+
+/* 見出し行＝押せる“行”に見せる */
+.menu-group summary{
+  padding: 16px 16px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 16px;
+  letter-spacing: .06em;
+
+  background: rgba(0,0,0,.10);
+  transition: background .2s ease, transform .2s ease;
+}
+.menu-group summary:hover{
+  background: rgba(233,230,223,.06);
+}
+.menu-group summary:active{
+  transform: translateY(1px);
+}
+
+/* 左側（カテゴリ名＋件数）をまとまりとして配置 */
+.menu-head{
+  display:flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.menu-name{
+  white-space: nowrap;
+}
+
+/* 件数バッジ：小さめ・上品に */
+.menu-group .count{
+  font-family: var(--sans);
+  font-size: 12px;
+  color: rgba(233,230,223,.78);
+  border: 1px solid rgba(233,230,223,.14);
+  background: rgba(233,230,223,.04);
+  border-radius: 999px;
+  padding: 2px 10px;
+  letter-spacing: .08em;
+}
+
+/* 右端のシェブロン：回転で状態表現（▶/▼より今っぽい） */
+.menu-group summary::after{
+  content: "›";
+  font-size: 18px;
+  color: rgba(233,230,223,.70);
+  transform: rotate(0deg);
+  transition: transform .18s ease, color .18s ease;
+  line-height: 1;
+}
+.menu-group[open] summary::after{
+  transform: rotate(90deg);
+  color: var(--text);
+}
+
+/* 開いてるカテゴリは少しだけ“浮く” */
+.menu-group[open] summary{
+  background: rgba(217,195,162,.08);
+  box-shadow: inset 0 -1px 0 rgba(233,230,223,.10);
+}
+
+/* 中身 */
+.menu-list{
+  margin: 0;
+  padding: 0 16px 16px;
+  display: grid;
+  gap: 10px;
+}
+.menu-list li{
+  border: 1px solid rgba(233,230,223,.14);
+  border-radius: 14px;
+  padding: 12px 12px;
+  background: rgba(0,0,0,.10);
+  color: rgba(233,230,223,.78);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* メニューの箇条書きマーカーを確実に消す */
+.menu-list{
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0;
+}
+.menu-list li{
+  list-style: none !important;
+}
+.menu-list li::marker{
+  content: "" !important;
+}
+
+/* スマホ：少し締める */
+@media (max-width: 560px){
+  .menu-group summary{
+    padding: 14px 14px;
+    font-size: 15px;
+    letter-spacing: .05em;
+  }
+  .menu-list{ padding: 0 14px 14px; }
+  .menu-list li{ font-size: 14px; }
+}
+
+
+/* ===== メニュー：逆再生アコーディオン ===== */
+.menu-panel{
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    height .36s ease,
+    opacity .22s ease,
+    transform .36s ease;
+  will-change: height;
+}
+
+.menu-group.is-open .menu-panel{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* PCでは常時展開 */
+@media (min-width: 561px){
+  .menu-panel{
+    height: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    overflow: visible !important;
+  }
+}
 
 
   </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-</head>
-
 <script async src="https://www.instagram.com/embed.js"></script>
+</head>
 
 <body>
  <header>
@@ -695,15 +1051,19 @@ footer .container > div{
         <div class="name">魚心</div>
            </a>
 
-      <nav class="main-nav" aria-label="ページ内ナビゲーション">
-        <ul>
-          <li><a href="#news">お知らせ</a></li>
-          <li><a href="#policy">魚心のこだわり</a></li>
-          <li><a href="#menu">メニュー</a></li>
-          <li><a href="#access">アクセス</a></li>
-          <li><a href="#contact">問い合わせ</a></li>
-        </ul>
-      </nav>
+<nav class="main-nav" aria-label="ページ内ナビゲーション">
+  <ul>
+    <li><a href="#news">お知らせ</a></li>
+    <li><a href="#policy">魚心のこだわり</a></li>
+    <li><a href="#menu">メニュー</a></li>
+    <li><a href="#access">アクセス</a></li>
+    <li><a href="#contact">お問い合わせ</a></li>
+  </ul>
+</nav>
+
+<button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
 
 <div class="header-tel" aria-label="電話番号">
   <a href="tel:045-423-6464">
@@ -717,13 +1077,20 @@ footer .container > div{
 </header>
 
 <section class="ig-embed" aria-label="Instagram">
-  <h2 class="ig-title">-海鮮小料理屋　魚心とは-
-<strong class="lead">「”おいしさに感動する”一皿を、”日常的に”お届けしたい」</strong>
-<span>その想いから、当店で扱う魚はすべて店主自ら早朝・未明に市場に赴き、自らの目で選び、仕入れております。<br>
-真空や冷凍のお魚をお出しすることは一切ありません。その分、大衆系の居酒屋さんより少々お値段は張りますが、<br>
-それでも、空間づくり、盛り付け、一口目の驚き、お食事中のサービス、食後の余韻まで含めて<br>
-「このお店にして良かった」と思っていただける価値を誠実にお届けします。<br>
-皆様のご来店と当店のお魚を堪能いただいた後の笑顔を心よりお待ちしております。</span>
+<h2 class="ig-title">-海鮮小料理屋　魚心とは-
+  <strong class="lead">「”おいしさに感動する”一皿を、”日常的に”お届けしたい」</strong>
+
+  <div class="intro-text is-collapsed">
+    <span>
+      その想いから、当店で扱う魚はすべて店主自ら早朝・未明に市場に赴き、自らの目で選び、仕入れております。<br>
+      真空や冷凍のお魚をお出しすることは一切ありません。その分、大衆系の居酒屋さんより少々お値段は張りますが、<br>
+      それでも、空間づくり、盛り付け、一口目の驚き、お食事中のサービス、食後の余韻まで含めて<br>
+      「このお店にして良かった」と思っていただける価値を誠実にお届けします。<br>
+      皆様のご来店と当店のお魚を堪能いただいた後の笑顔を心よりお待ちしております。
+    </span>
+  </div>
+
+  <button class="readmore-btn" type="button">続きを読む</button>
 </h2>
 
   <div class="ig-grid">
@@ -820,34 +1187,50 @@ footer .container > div{
       <p class="sub">適正な価格で、金額以上の”美味しさ”だけではない”体験”をご堪能ください</p>
 
       <div class="grid">
-        <div class="box">
-          <h3>お刺身・お魚</h3>
-          <p>お刺身を堪能いただけるように、しっかり食べ応えのある厚さで提供します。<br>
-冷凍・真空は使用せず、店長自ら仕入れたお魚を、<br>
-産地とともにご紹介しご提供します。
-          </p>
-        </div>
+  <div class="box">
+  <h3>お料理</h3>
+  <div class="box-text is-collapsed">
+    <p>
+      お刺身は、冷凍・真空は使用せず店長自ら仕入れたお魚を、<br>
+      食べ応えのある厚みで切り分け、産地とともにご紹介しご提供します。<br>
+      一品ものにも、冷凍は使わず旬の食材をお届けしております。
+    </p>
+  </div>
+
+  <button class="box-readmore" type="button">続きを読む</button>
+</div>
         <div class="box">
           <h3>盛り付け</h3>
+  <div class="box-text is-collapsed">
           <p>お刺身の色合い、肉厚さ、存在感を存分に味わえる盛り付けを心掛けています。<br>
 店主自ら買い付けたお皿を、ご提供する品物に応じて組み合わせ、<br>
 つい写真に納めてしまいたくなるような視覚的な感動を与えます。
           </p>
-        </div>
+   </div>
+
+  <button class="box-readmore" type="button">続きを読む</button>
+</div>
         <div class="box">
           <h3>日本酒</h3>
+ <div class="box-text is-collapsed">
           <p>常時日本全国から10種類近いラインナップを取り揃えております。<br>
 時にはシリアルナンバー入りのレア酒をお取り扱うこともあります。<br>
 ご相談いただければお好みに合うお酒をおすすめいたします。
-          </p>
-        </div>
+           </p>
+   </div>
+  <button class="box-readmore" type="button">続きを読む</button>
+</div>
         <div class="box">
           <h3>店内</h3>
+ <div class="box-text is-collapsed">
           <p>皆様が心ゆくまでお食事とお連れ様との会話を楽しんでいただけるよう、<br>
 黒を基調とした落ち着いた雰囲気で、穏やかな照明のもと、BGMにはジャズを、<br>
-テーブル席はお隣のお席と、すだれによる仕切りで半個室空間を提供しています<br>
-          </p>
-        </div>
+テーブル席はお隣のお席とすだれで仕切る、などの工夫をしています<br>
+            </p>
+   </div>
+  <button class="box-readmore" type="button">続きを読む</button>
+</div>
+
       </div>
     </section>
 
@@ -856,45 +1239,60 @@ footer .container > div{
   <h2>メニュー</h2>
   <p class="sub">お刺身・盛り合わせは仕入れ状況により金額が変動いたします。</p>
 
-  <!-- ボディ専用（スクロール） -->
-  <div class="menu-scroll">
-    <table class="menu menu-body" aria-label="メニュー一覧">
-      <tbody>
-          <tr>
-            <td>お刺身</td>
-            <td>5点盛り（魚種は仕入れによって変動します）</td>
-           </tr>
-          <tr>
-            <td>お刺身</td>
-            <td>7点盛り（魚種は仕入れによって変動します）</td>
-          </tr>
-          <tr>
-            <td>お刺身</td>
-            <td>豪華お任せ盛り（要予約・ご予算に応じて調整します）</td>
-　　　　　</tr>
-          <tr>
-            <td>お刺身</td>
-            <td>単品（地だこ、カンパチ、ハタ、赤貝など）</td>
-          </tr>
-          <tr>
-            <td>定番</td>
-            <td>自家製出汁巻き玉子</td>
-            </tr>
-          <tr>
-            <td>定番</td>
-            <td>自家製さつま揚げ</td>
-	　</tr>
-          <tr>
-            <td>焼き魚</td>
-            <td>イワシ明太焼き</td>
-          </tr>
-          <tr>
-            <td>焼き魚</td>
-            <td>銀ダラの西京焼き</td>
-          </tr>
-        </tbody>
-      </table>
-     </div>
+ <div class="menu-acc" aria-label="メニュー一覧（カテゴリ別）">
+
+  <details class="menu-group">
+<summary>
+  <span class="menu-head">
+    <span class="menu-name">お刺身</span>
+    <span class="count">4</span>
+  </span>
+</summary> 
+  <div class="menu-panel">
+   <ul class="menu-list">
+      <li>5点盛り（魚種は仕入れによって変動します）</li>
+      <li>7点盛り（魚種は仕入れによって変動します）</li>
+      <li>豪華お任せ盛り（要予約・ご予算に応じて調整します）</li>
+      <li>単品（地だこ、カンパチ、ハタ、赤貝など）</li>
+</ul>
+</div>
+  </details>
+
+  <details class="menu-group">
+<summary>
+  <span class="menu-head">
+    <span class="menu-name">定番</span>
+    <span class="count">2</span>
+  </span>
+</summary>
+  <div class="menu-panel">
+    <ul class="menu-list">
+      <li>自家製出汁巻き玉子</li>
+      <li>鯛と玉ねぎの自家製さつま揚げ</li>
+    </ul>
+</div>
+  </details>
+
+  <details class="menu-group">
+<summary>
+  <span class="menu-head">
+    <span class="menu-name">一品もの</span>
+    <span class="count">5</span>
+  </span>
+</summary>
+  <div class="menu-panel">
+    <ul class="menu-list">
+      <li>イワシ明太焼き</li>
+      <li>自家製みそ使用！銀ダラの西京焼き</li>
+      <li>地だこのから揚げ</li>
+      <li>竹の子の土佐煮</li>
+      <li>サメ軟骨使用！南高梅の梅水晶</li>
+    </ul>
+</div>
+  </details>
+
+</div>
+
       <div class="note">
         ※ 上記メニューは一部です。ぜひご来店いただきゆっくりお選びください。<br>
         ※ アレルギーや苦手食材は、お気軽にお声がけください。<br>
@@ -967,7 +1365,6 @@ footer .container > div{
      rel="noopener noreferrer">
     Instagramへ
   </a>
-</div>
       </div>
     </section>
 
@@ -988,11 +1385,114 @@ footer .container > div{
      <a class="quiet-link" href="jobs.html">採用情報（アルバイト）</a>
 
   </footer>
- <script>
-    // 年号のみ自動更新（軽量）
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+<script>
+  // 年号（存在する時だけ）
+  const y = document.getElementById('y');
+  if (y) y.textContent = new Date().getFullYear();
 
+  // ハンバーガー
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.main-nav');
 
+  function closeNav(){
+    nav.classList.remove('is-open');
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
+  }
+
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      toggle.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('nav-open', open);
+    });
+
+    nav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', closeNav);
+    });
+
+    nav.addEventListener('click', (e) => {
+      if (e.target === nav) closeNav();
+    });
+  }
+
+  const btn = document.querySelector('.readmore-btn');
+  const text = document.querySelector('.intro-text');
+
+  if(btn && text){
+    btn.addEventListener('click', () => {
+      const open = text.classList.toggle('is-open');
+      text.classList.toggle('is-collapsed', !open);
+      btn.textContent = open ? '閉じる' : '続きを読む';
+    });
+  }
+
+ document.querySelectorAll('.box').forEach(box => {
+    const btn = box.querySelector('.box-readmore');
+    const text = box.querySelector('.box-text');
+
+    if(!btn || !text) return;
+
+    btn.addEventListener('click', () => {
+      const open = text.classList.toggle('is-open');
+      text.classList.toggle('is-collapsed', !open);
+      btn.textContent = open ? '閉じる' : '続きを読む';
+    });
+  });
+// ===== メニュー：逆再生アコーディオン（スマホのみ） =====
+(function(){
+  if(!window.matchMedia('(max-width: 560px)').matches) return;
+
+  document.querySelectorAll('.menu-group').forEach(group => {
+    const summary = group.querySelector('summary');
+    const panel   = group.querySelector('.menu-panel');
+    if(!summary || !panel) return;
+
+    // 初期状態
+    if(group.open){
+      panel.style.height = panel.scrollHeight + 'px';
+      group.classList.add('is-open');
+    }else{
+      panel.style.height = '0px';
+    }
+
+    summary.addEventListener('click', e => {
+      e.preventDefault(); // ★これが超重要
+
+      const isOpen = group.open;
+
+      if(!isOpen){
+        // ===== OPEN（下に降りる）=====
+        group.open = true;
+        group.classList.add('is-open');
+
+        panel.style.height = '0px';
+        requestAnimationFrame(() => {
+          panel.style.height = panel.scrollHeight + 'px';
+        });
+
+      }else{
+        // ===== CLOSE（上に吸い込まれる：逆再生）=====
+        const h = panel.scrollHeight;
+        panel.style.height = h + 'px';
+
+        requestAnimationFrame(() => {
+          panel.style.height = '0px';
+        });
+
+        panel.addEventListener('transitionend', function onEnd(e){
+          if(e.propertyName !== 'height') return;
+          group.open = false;
+          group.classList.remove('is-open');
+          panel.removeEventListener('transitionend', onEnd);
+        });
+      }
+    });
+  });
+})();
+
+</script>
 </body>
 </html>
