@@ -772,8 +772,18 @@ form{
     overflow: visible !important;
   }
 }
-
-
+/* PCでは「続きを読む」ボタンを表示しない */
+@media (min-width: 561px){
+  .readmore-btn{
+    display: none;
+  }
+}
+/* PCでは「続きを読む（こだわりBox）」を表示しない */
+@media (min-width: 561px){
+  .box-readmore{
+    display: none;
+  }
+}
   </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="assets/common.css">
