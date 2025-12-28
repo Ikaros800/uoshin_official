@@ -259,3 +259,8 @@ header{
   }
 }
 
+/* お知らせ詳細：タイトル背景を消す */
+.news-detail .section-head{
+  background: transparent;
+  border: 0;
+}
