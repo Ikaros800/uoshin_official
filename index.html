@@ -688,6 +688,18 @@ form{
   content: "" !important;
 }
 
+/* ===== メニュー：逆再生アコーディオン ===== */
+.menu-summary{
+  all: unset;
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  width:100%;
+  padding:16px;
+  cursor:pointer;
+  font-family: var(--serif);
+}
+
 .menu-panel{
   overflow: hidden;
   height: 0;
@@ -912,24 +924,9 @@ form{
   white-space: nowrap;
 }
 
-/* 件数バッジ */
-.count{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  height:22px;
-  padding:0 10px;
-  border-radius:999px;
-  font-size:12px;
-  line-height:1;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(233,230,223,.14);
-  color: rgba(233,230,223,.78);
-}
-
 /* 矢印：数字のすぐ右に置く */
 .menu-chev{
-  margin-left: 6px;          /* ← ここで“近さ”を調整 */
+  margin-left: 2px;          /* ← ここで“近さ”を調整 */
   font-size: 18px;
   line-height: 1;
   opacity: .7;
@@ -947,25 +944,6 @@ form{
   .menu-acc{
     max-width: 100%;
   }
-}
-/* 件数：枠なし・文字だけにする */
-.count{
-  border: none !important;
-  background: none !important;
-  padding: 0 !important;
-
-  font-size: 13px;              /* 少しだけ存在感 */
-  letter-spacing: .08em;
-  color: rgba(233,230,223,.6);  /* 主張しすぎない */
-}
-
-/* ===== メニュー：左（アコーディオン） / 右（文言）に分割 ===== */
-.menu-split{
-  display: grid;
-  grid-template-columns: 1fr 1fr;  /* ← 半分ずつ */
-  gap: 18px;
-  align-items: start;
-  margin-top: 10px;
 }
 
 /* 左側：幅制限は解除（ここが “中途半端” の原因になりやすい） */
@@ -1050,6 +1028,30 @@ form{
   }
 }
 
+/* ===== 魚心のこだわり：左=お料理 / 右=日本酒+店内 ===== */
+#policy .policy-split{
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr; /* 右を少し広め */
+  gap: 14px;
+  align-items: stretch; /* 高さを揃える */
+}
+
+#policy .policy-right{
+  display: grid;
+  grid-template-rows: auto auto; /* 右を2段 */
+  gap: 14px;
+}
+
+/* スマホは縦並びに戻す */
+@media (max-width: 860px){
+  #policy .policy-split{
+    grid-template-columns: 1fr;
+  }
+  #policy .policy-right{
+    grid-template-rows: auto;
+  }
+}
+
 
   </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -1058,11 +1060,12 @@ form{
 
 <body>
  <header>
-  <div class="container">
-    <div class="nav">
-      <a class="brand" href="#top" aria-label="ページ先頭へ">
-        <div class="name">魚心</div>
-           </a>
+<div class="container">
+  <div class="nav">
+    <a class="brand" href="#about" aria-label="ページ先頭へ">
+         <span class="logo" data-inline-svg="logo.svg"></span>
+    </a>
+
 
 <nav class="main-nav" aria-label="ページ内ナビゲーション">
   <ul>
@@ -1070,7 +1073,7 @@ form{
     <li><a href="#policy">魚心のこだわり</a></li>
     <li><a href="#menu">メニュー</a></li>
     <li><a href="#access">アクセス</a></li>
-    <li><a href="#contact">お問い合わせ</a></li>
+    <li><a href="#contact">ご予約・お問い合わせ</a></li>
   </ul>
 </nav>
 
@@ -1089,15 +1092,15 @@ form{
   </div>
 </header>
 
-<section class="ig-embed" aria-label="Instagram">
+<section id="about" class="ig-embed" aria-label="魚心とは">
 <h2 class="ig-title">-海鮮小料理屋　魚心とは-
   <strong class="lead">「”おいしさに感動する”一皿を日々追求し、<br>
-    大切なお客様へ”日常的に”お届けしたい」</strong>
+    　　　　　　　　　　大切なお客様へ”日常的に”お届けしたい」</strong>
 
   <div class="intro-text is-collapsed">
     <span>
-      その想いから、当店で扱う魚はすべて店主自ら早朝・未明に市場に赴き、自らの目で妥協なく選び抜き、<br>
-      店主が納得したもののみ、仕入れ、お出し致します。<br>
+      その想いから、当店で扱う魚はすべて店主自ら早朝・未明に市場に赴き、<br>
+      自らの目で妥協なく選び抜き、店主が納得したもののみ仕入れ、ご提供致します。<br>
       空間づくり、盛り付け、一口目の驚き、お食事中のサービス、食後の余韻まで含め、<br>
       「このお店にして良かった」と思っていただける価値を誠実にお届け致します。<br>
       皆様のご来店と当店のお料理をご堪能いただいた後の晴れやかな笑顔にお目にかかれますことを、心よりお待ち申し上げます。
@@ -1143,15 +1146,14 @@ form{
           <div class="kicker"><span class="dot"></span> 海鮮小料理屋 魚心 · since 2018</div>
           <h1>早朝仕入れは、<br>お客様への奉仕の第一歩</h1>
           <p class="lead">
-            ご来店いただいたお客様一人ひとりに、感動と心の満足を味わっていただきたい…
-            店長自ら早朝に市場に足を運び、その日一番良い鮮魚を一番手で仕入れています。
-            味わいだけでなく、空間の佇まい、お酒との調和、心地よい距離感まで含め、五感に静かに響く時間を魚心としての軸とし、
+            『ご来店いただいたお客様一人ひとりに、感動と心の満足を味わっていただきたい…』その志を胸に、店主自ら早朝に市場に足を運び、その日一番良い鮮魚を「一番手」で仕入れています。
+            味わいだけでなく、空間の佇まい、お酒との調和、心地よい距離感まで、<b>「五感に静かに響く時間」</b>を魚心としての軸とし、
             その質を少しずつ高めることを、日々の営みと常に肝に銘じております。 
           </p>
           <div class="hero-actions">
             <a class="btn primary" href="#menu">メニューを見る</a>
             <a class="btn" href="#access">アクセス</a>
-            <a class="btn" href="#contact">お問い合わせ</a>
+            <a class="btn" href="#contact">ご予約・お問い合わせ</a>
           </div>
         </div>
 
@@ -1203,47 +1205,55 @@ form{
     <section id="policy" class="card section">
       <h2>魚心のこだわり</h2>
 
-      <div class="grid">
-  <div class="box">
-  <h3>お料理</h3>
-  <div class="box-text is-collapsed">
-    <p>
-      鮮魚には、それぞれ最もおいしくなる「間」と「形」があります。<br>
-寝かせるか否か、厚く引くか薄く引くか——<br>
-魚種ごとの特性を徹底し見極め、その一尾にとっての最適解を日々追い続けています。
-    </p>
+   <div class="policy-split">
+
+  <!-- 左：お料理（縦長） -->
+  <div class="box policy-food">
+    <h3>お料理</h3>
+    <div class="box-text is-collapsed">
+      <p>
+旬という言葉に左右されることなく、<br>
+店主自身の目で見て、納得できるお魚だけを選び抜いています。<br>
+<br>
+そのうえで、仕入れた鮮魚それぞれが最もおいしくなる<br>
+「間」と「形」—寝かせるか否か、厚く引くか薄く引くか—<br>
+を<b>魚種ごとの特性に加え、個体差まで徹底して見極め、</b><br>その一尾にとっての最適解を日々追い続けています。
+      </p>
+    </div>
+    <button class="box-readmore" type="button">続きを読む</button>
   </div>
+ <!-- 右：日本酒＋店内（縦に2段） -->
+  <div class="policy-right">
 
-  <button class="box-readmore" type="button">続きを読む</button>
-</div>
-        <div class="box">
-          <h3>日本酒</h3>
- <div class="box-text is-collapsed">
-          <p>常時日本全国から10種類以上のラインナップを取り揃えております。<br>
-時にはシリアルナンバー入りの入手困難なお酒もお取り扱うこともあります。<br>
-ご相談いただければお好みに合うお酒をおすすめいたします。
-           </p>
+    <div class="box">
+      <h3>日本酒</h3>
+      <div class="box-text is-collapsed">
+        <p>
+          常時<b>日本全国から10種類以上のラインナップを</b>取り揃えております。<br>
+          時にはシリアルナンバー入りの入手困難なお酒をお取り扱うこともあります。<br>
+          ご相談いただければお好みに合うお酒をおすすめいたします。
+        </p>
+      </div>
+      <button class="box-readmore" type="button">続きを読む</button>
+    </div>
+
+    <div class="box">
+      <h3>店内</h3>
+      <div class="box-text is-collapsed">
+        <p>
+          すだれでゆるやかに仕切った店内は、過度に閉じないことで空気の流れと静けさを保っています。<br>
+          落ち着いた雰囲気の中、<b>それぞれの時間を大切にお過ごしください。</b>
+        </p>
    </div>
   <button class="box-readmore" type="button">続きを読む</button>
 </div>
-        <div class="box">
-          <h3>店内</h3>
- <div class="box-text is-collapsed">
-すだれでゆるやかに仕切った店内は、<<br>
-過度に閉じないことで空気の流れと静けさを保っています。<br>
-落ち着いた雰囲気の中、それぞれの時間を大切にお過ごしください。
-            </p>
-   </div>
-  <button class="box-readmore" type="button">続きを読む</button>
 </div>
-
       </div>
     </section>
 
     <!-- メニュー -->
 <section id="menu" class="card section">
   <h2>メニュー</h2>
-  <p class="sub">お刺身・盛り合わせは仕入れ状況により金額が変動いたします。</p>
 
   <div class="menu-split">
 
@@ -1254,63 +1264,25 @@ form{
         <div class="menu-group">
           <button class="menu-summary" type="button">
             <span class="menu-name">お刺身</span>
-            <span class="count">4</span>
             <span class="menu-chev" aria-hidden="true">›</span>
           </button>
 
           <div class="menu-panel">
             <ul class="menu-list">
-              <li>5点盛り（魚種は仕入れによって変動します）</li>
-              <li>7点盛り（魚種は仕入れによって変動します）</li>
+              <li>5点盛り（魚種はその日の仕入れによって変動）</li>
+              <li>7点盛り（魚種はその日の仕入れによって変動）</li>
               <li>豪華お任せ盛り（要予約・ご予算に応じて調整します）</li>
-              <li>単品（地だこ、カンパチ、ハタ、赤貝など）</li>
+              <li>単品（その日の仕入れから、良いものを）</li>
             </ul>
           </div>
         </div>
-
-        <div class="menu-group">
-          <button class="menu-summary" type="button">
-            <span class="menu-name">定番</span>
-            <span class="count">3</span>
-            <span class="menu-chev" aria-hidden="true">›</span>
-          </button>
-
-          <div class="menu-panel">
-            <ul class="menu-list">
-              <li>自家製出汁巻き玉子</li>
-              <li>鯛と玉ねぎの自家製さつま揚げ</li>
-              <li>チョリソー春巻き</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="menu-group">
-          <button class="menu-summary" type="button">
-            <span class="menu-name">一品もの</span>
-            <span class="count">5</span>
-            <span class="menu-chev" aria-hidden="true">›</span>
-          </button>
-
-          <div class="menu-panel">
-            <ul class="menu-list">
-              <li>イワシ明太焼き</li>
-              <li>自家製みそ使用！銀ダラの西京焼き</li>
-              <li>地だこのから揚げ</li>
-              <li>竹の子の土佐煮</li>
-              <li>サメ軟骨使用！南高梅の梅水晶</li>
-            </ul>
-          </div>
-        </div>
-
       </div>
     </div>
 
     <!-- 右：文言 -->
     <div class="menu-right">
       <div class="note menu-note">
-        ※ 上記メニューは一部です。ぜひご来店いただきゆっくりお選びください。<br>
-        ※ アレルギーや苦手食材は、お気軽にお声がけください。<br>
-        ※ お魚のほか、お肉やお野菜もの、デザートも取り揃えております。
+        ※ お刺身の他、アラカルトもご用意しております。ぜひご来店いただきゆっくりお選びください。
       </div>
     </div>
 
@@ -1355,7 +1327,7 @@ form{
 
     <!-- 問い合わせ -->
     <section id="contact" class="card section">
-      <h2>お問い合わせ</h2>
+      <h2>ご予約・お問い合わせ</h2>
 <p class="contact-tel-line">
   <span class="contact-tel-label">TEL</span>
 
@@ -1373,7 +1345,7 @@ form{
 </p>
 <p>
     お電話にてお気軽にご連絡ください。<br>
-    ご予約・貸切のご相談、アレルギー等のご相談も承っております。
+    貸切のご相談も承っております。
   </p>
 
   <a class="btn" 
@@ -1403,37 +1375,6 @@ form{
 
   </footer>
 <script>
-  // 年号（存在する時だけ）
-  const y = document.getElementById('y');
-  if (y) y.textContent = new Date().getFullYear();
-
-  // ハンバーガー
-  const toggle = document.querySelector('.nav-toggle');
-  const nav = document.querySelector('.main-nav');
-
-  function closeNav(){
-    nav.classList.remove('is-open');
-    toggle.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('nav-open');
-  }
-
-  if (toggle && nav) {
-    toggle.addEventListener('click', () => {
-      const open = nav.classList.toggle('is-open');
-      toggle.classList.toggle('is-open', open);
-      toggle.setAttribute('aria-expanded', String(open));
-      document.body.classList.toggle('nav-open', open);
-    });
-
-    nav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', closeNav);
-    });
-
-    nav.addEventListener('click', (e) => {
-      if (e.target === nav) closeNav();
-    });
-  }
 
   const btn = document.querySelector('.readmore-btn');
   const text = document.querySelector('.intro-text');
@@ -1578,7 +1519,9 @@ document.querySelectorAll('.menu-group').forEach(group => {
   });
 });
 
+
 </script>
 <script src="assets/common.js" defer></script>
+<script src="assets/inline-svg.js" defer></script>
 </body>
 </html>
