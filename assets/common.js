@@ -1,7 +1,7 @@
 
-// 年号
-const y = document.getElementById('y');
-if (y) y.textContent = new Date().getFullYear();
+  // 年号（存在する時だけ）
+  const y = document.getElementById('y');
+  if (y) y.textContent = new Date().getFullYear();
 
 // ハンバーガー
 const toggle = document.querySelector('.nav-toggle');

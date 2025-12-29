@@ -629,42 +629,12 @@ form{
     color: var(--accent2);
   }
 }
-/* ===== メニュー：UIを上品に（上書き） ===== */
-.menu-acc{
-  border: 1px solid rgba(233,230,223,.16);
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.06));
-  overflow: hidden;
 }
 
 .menu-group{
   border-top: 1px solid rgba(233,230,223,.12);
 }
 .menu-group:first-child{ border-top: none; }
-
-/* 見出し行＝押せる“行”に見せる */
-.menu-group summary{
-  padding: 16px 16px;
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
-  gap: 12px;
-  cursor: pointer;
-
-  color: var(--text);
-  font-family: var(--serif);
-  font-size: 16px;
-  letter-spacing: .06em;
-
-  background: rgba(0,0,0,.10);
-  transition: background .2s ease, transform .2s ease;
-}
-.menu-group summary:hover{
-  background: rgba(233,230,223,.06);
-}
-.menu-group summary:active{
-  transform: translateY(1px);
-}
 
 /* 左側（カテゴリ名＋件数）をまとまりとして配置 */
 .menu-head{
@@ -677,27 +647,6 @@ form{
   white-space: nowrap;
 }
 
-/* 件数バッジ：小さめ・上品に */
-.menu-group .count{
-  font-family: var(--sans);
-  font-size: 12px;
-  color: rgba(233,230,223,.78);
-  border: 1px solid rgba(233,230,223,.14);
-  background: rgba(233,230,223,.04);
-  border-radius: 999px;
-  padding: 2px 10px;
-  letter-spacing: .08em;
-}
-
-/* 右端のシェブロン：回転で状態表現（▶/▼より今っぽい） */
-.menu-group summary::after{
-  content: "›";
-  font-size: 18px;
-  color: rgba(233,230,223,.70);
-  transform: rotate(0deg);
-  transition: transform .18s ease, color .18s ease;
-  line-height: 1;
-}
 .menu-group[open] summary::after{
   transform: rotate(90deg);
   color: var(--text);
@@ -737,30 +686,6 @@ form{
 }
 .menu-list li::marker{
   content: "" !important;
-}
-
-/* スマホ：少し締める */
-@media (max-width: 860px){
-  .menu-group summary{
-    padding: 14px 14px;
-    font-size: 15px;
-    letter-spacing: .05em;
-  }
-  .menu-list{ padding: 0 14px 14px; }
-  .menu-list li{ font-size: 14px; }
-}
-
-
-/* ===== メニュー：逆再生アコーディオン ===== */
-.menu-summary{
-  all: unset;
-  display:flex;
-  justify-content: space-between;
-  align-items:center;
-  width:100%;
-  padding:16px;
-  cursor:pointer;
-  font-family: var(--serif);
 }
 
 .menu-panel{
@@ -846,16 +771,6 @@ form{
   align-items:center;
   width:100%;
 }
-
-.menu-arrow{
-  margin-left:auto;
-  font-size:20px;
-  line-height:1;
-  color: rgba(233,230,223,.8);
-  transform: rotate(0deg);
-  transition: transform .2s ease, color .2s ease;
-}
-
 /* 開いたら回転 */
 .menu-group.is-open .menu-arrow{
   transform: rotate(90deg);
@@ -875,70 +790,10 @@ form{
   letter-spacing:.06em;
 }
 
-/* 右：件数＋矢印 */
-.menu-meta{
-  margin-left:auto;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-/* 件数は「情報」感を出す */
-.count{
-  font-size:12px;
-  padding:2px 10px;
-  border-radius:999px;
-  background: rgba(255,255,255,.06);
-  color: rgba(233,230,223,.8);
-}
-
-/* 矢印 */
-.menu-arrow{
-  font-size:20px;
-  line-height:1;
-  opacity:.7;
-  transform: rotate(0deg);
-  transition:.2s ease;
-}
-
-.menu-group.is-open .menu-arrow{
-  transform: rotate(90deg);
-  opacity:1;
-}
-
-.menu-summary{
-  all: unset;
-  display: grid;
-  grid-template-columns: 1fr auto 20px; /* タイトル / 件数 / 矢印 */
-  align-items: center;                  /* 縦の芯を揃える */
-  column-gap: 10px;                     /* タイトルに近づける */
-  width: 100%;
-  padding: 16px;
-  cursor: pointer;
-  font-family: var(--serif);
-}
-
 /* タイトル */
 .menu-name{
   min-width: 0;
   white-space: nowrap;
-}
-
-/* 件数：縦位置をさらにキレイに（文字のベースライン寄せ） */
-.count{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 22px;
-  padding: 0 10px;
-  border-radius: 999px;
-  font-family: var(--sans);
-  font-size: 12px;
-  line-height: 1;
-  letter-spacing: .08em;
-  color: rgba(233,230,223,.78);
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(233,230,223,.14);
 }
 
 /* 矢印：列幅固定なので、全行で“縦に揃う” */
@@ -1032,11 +887,6 @@ form{
 @media (max-width: 860px){
   :root{ --menu-title-w: 7.5em; } /* ←スマホはちょい短め */
   .menu-group > .menu-summary{ padding: 14px 14px !important; }
-}
-
-/* ===== メニュー行：横幅を抑えて上品に ===== */
-.menu-acc{
-  max-width: 860px;          /* ← PCで“半分くらい”の幅 */
 }
 
 /* 中央寄せ */
@@ -1135,12 +985,6 @@ form{
   line-height: 1.8;
 }
 
-/* スマホ：縦並び */
-@media (max-width: 860px){
-  .menu-split{
-    grid-template-columns: 1fr;
-  }
-}
 
 .menu-acc{
   max-width: 860px;
@@ -1157,38 +1001,9 @@ form{
   color: var(--text) !important;
 }
 
-/* 件数 */
-.menu-summary .count{
-  color: rgba(233,230,223,.70) !important;
-}
-
 /* 矢印 */
 .menu-summary .menu-chev{
   color: rgba(233,230,223,.80) !important;
-}
-
-/* 右：文言を下詰め */
-.menu-right{
-  display: flex;
-  align-items: flex-end;   /* ← 下詰め */
-}
-
-/* 右：メニュー注意文言（枠なし・下詰め用） */
-.menu-note{
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-
-  color: rgba(233,230,223,.75);
-  font-size: 14px;
-  line-height: 1.8;
-}
-/* ===== メニュー：左右2分割＋右の文言を下詰め（確定版） ===== */
-.menu-split{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  align-items: stretch;      /* ← 高さを揃える（重要） */
 }
 
 /* 右カラムを縦flexにして、下へ寄せる */
@@ -1211,7 +1026,7 @@ form{
 @media (min-width: 861px){
   .menu-split{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.8fr 1.2fr;
     gap: 18px;
     align-items: stretch;
   }
