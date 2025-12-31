@@ -17,7 +17,7 @@
 
 .ig-title{
   font-family: var(--serif);     /* ← ここが効く */
-  font-size: 30px;
+  font-size: 44px;
   font-weight: 500;
   letter-spacing: .18em;
   text-align: left;              /* 左寄せのままが渋い */
@@ -26,7 +26,7 @@
 
 .ig-title .lead{
   display: block;
-  font-size: 20px;
+  font-size: 32px;
   line-height: 1.6;
   letter-spacing: 0.06em;
   font-weight: 600;
@@ -39,34 +39,10 @@
   display: block;
   margin-top: 6px;
   font-family: var(--serif);
-  font-size: 16px;          /* PC: 16〜17が見やすい */
+  font-size: 18px;          /* PC: 16〜17が見やすい */
   line-height: 1.95;         /* 明朝は広めが読みやすい */
   letter-spacing: 0.02em;   /* 広げすぎない（0〜0.03） */
   color: var(--muted);              /* 真っ黒を避ける */
-}
-
-.insta-section{
-  max-width: 900px;
-  margin: 24px auto 40px;
-  padding: 0 20px;
-  text-align: center;
-}
-
-.insta-section blockquote{
-  margin: 0 auto 16px;
-}
-
-.insta-cta a{
-  display: inline-block;
-  font-size: 14px;
-  color: var(--muted);
-  text-decoration: none;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 4px;
-}
-
-.insta-cta a:hover{
-  color: var(--text);
 }
 
     .hero{
@@ -74,7 +50,7 @@
     }
     .hero-grid{
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.3fr .7fr;
       gap:18px;
       align-items:stretch;
     }
@@ -117,7 +93,7 @@
       margin: 0 0 16px;
       color: var(--muted);
       max-width: 60ch;
-      font-size: 15px;
+      font-size: 16px;
     }
     .hero-actions{
       display:flex; gap:10px; flex-wrap:wrap;
@@ -131,6 +107,7 @@
       background: rgba(233,230,223,.06);
       color: var(--text);
       font-size: 13px;
+      font-family: var(--serif) !important;
       transition:.2s ease;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(233,230,223,.09); }
@@ -184,6 +161,7 @@
     }
     .box h3{
       margin:0 0 8px;
+      font-family: var(--serif);
       font-size: 18px;
       letter-spacing:.06em;
       color: var(--text);
@@ -399,24 +377,6 @@ form{
 @media (max-width: 860px){
   .notice-item{ grid-template-columns: 1fr; }
 }
-/* ④ 予約ボックスを少し浮かせる影（控えめ） */
-.reserve-card{
-  box-shadow: 0 8px 20px rgba(0,0,0,.35);
-}
-
-/* スマホ：右固定は邪魔なので、画面下に固定 */
-@media (max-width: 899px){
-  .reserve-float{
-    right: 12px;
-    left: 12px;
-    top: auto;
-    bottom: 12px;
-    width: auto;
-  }
-  .reserve-actions{
-    grid-template-columns: 1fr 1fr;
-  }
-}
 
 .quiet-link{
   color: var(--muted);
@@ -448,15 +408,10 @@ form{
 .ig-cta{
   margin-top: 10px;
   text-align: right;
-}
+ }
 
-@media (max-width: 768px){
+@media (max-width: 860px){
   .ig-grid{ grid-template-columns: 1fr; }
-}
-
-/* 予約Boxを常に最前面に */
-.reserve-float{
-  z-index: 9999;           /* ← 1000→大きく */
 }
 
 /* iframe（地図）が前面に来てしまう環境対策 */
