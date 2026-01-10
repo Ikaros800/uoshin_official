@@ -81,7 +81,7 @@
   line-height: 1.2;
 }
 
-@media (max-width: 860px){
+@media (max-width: 1030px){
   .header-tel{
     top: 16px;
     right: 16px;
@@ -163,7 +163,7 @@ footer .container > div{
   transition: transform .25s ease, opacity .25s ease;
 }
 
-@media (max-width: 860px){
+@media (max-width: 1030px){
   .main-nav{ display:none; }
 
   .nav-toggle{
@@ -220,7 +220,7 @@ header{
   z-index: 20000;
 }
 /* ===== ハンバーガー：最前面で全画面を確実に覆う（上書き） ===== */
-@media (max-width: 860px){
+@media (max-width: 1030px){
   /* これが“面”になる */
   .main-nav.is-open{
     display: block !important;
@@ -259,28 +259,21 @@ header{
   height:56px;          /* ヘッダーに合っている高さ */
   display:flex;
   align-items:center;
-  margin-left: -200px;   /* ← 少しずつ調整 */
 }
 
 .logo svg{
   height:100%;
   width:auto;
   display:block;
-  transform: scale(1.1) translateX(-100px);
+  transform: scale(1.1)
   fill: currentColor;
-}
-
-/* スマホだけ弱める */
-@media (max-width: 480px){
-  .logo svg{
-    transform: scale(1.1) translateX(0px);
-  }
 }
 
 .brand{
   display: flex;
   align-items: center;
-  gap: 8px;   /* ロゴと文字の間隔 */
+  gap: 12px;   /* ロゴと文字の間隔 */
+  transform: translateX(-100px)
 }
 
 .brand-text{
@@ -292,12 +285,8 @@ header{
   height: center;
 }
 
-@media (max-width: 860px){
-  .logo{
-    margin-left: 0;   /* ← これが最重要 */
-    height: 40px;     /* ロゴも縮めると安定 */
-  }
-  .nav{
-    padding: 12px 0;  /* 高さも少し詰める */
-  }
+@media (max-width: 1030px){
+ .brand{
+  transform: translateX(0px)
+}
 }
