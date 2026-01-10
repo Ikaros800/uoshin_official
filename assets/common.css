@@ -253,17 +253,7 @@ header{
   border: 0;
 }
 
-.logo svg *{
-  fill: currentColor;
-}
-
 /* ロゴ（SVG） */
-
-.logo svg{
-  display:block;
-  height:100%;
-  width:auto;       /* 横は自動 */
-}
 
 .logo{
   height:56px;          /* ヘッダーに合っている高さ */
@@ -276,7 +266,15 @@ header{
   height:100%;
   width:auto;
   display:block;
-  transform: scale(1.1);     /* ← ここが肝 */
+  transform: scale(1.1) translateX(-100px);
+  fill: currentColor;
+}
+
+/* スマホだけ弱める */
+@media (max-width: 480px){
+  .logo svg{
+    transform: scale(1.1) translateX(0px);
+  }
 }
 
 .brand{
