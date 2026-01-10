@@ -265,7 +265,7 @@ header{
   height:100%;
   width:auto;
   display:block;
-  transform: scale(1.1)
+  transform: scale(1.1);
   fill: currentColor;
 }
 
@@ -273,7 +273,7 @@ header{
   display: flex;
   align-items: center;
   gap: 12px;   /* ロゴと文字の間隔 */
-  transform: translateX(-100px)
+  transform: translateX(-100px);
 }
 
 .brand-text{
@@ -287,6 +287,6 @@ header{
 
 @media (max-width: 1030px){
  .brand{
-  transform: translateX(0px)
+  transform: translateX(0px);
 }
 }
