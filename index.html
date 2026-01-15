@@ -6,7 +6,7 @@
   <meta name="google-site-verification" content="UOYNyqtUsLoCjTFRXsuvAIXfsL8Dyu1SVJ72G8xRqyc" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="落ち着いた個人店の飲食店ホームページ。こだわり、メニュー、アクセス、お問い合わせ。" />
-  <title>海鮮小料理屋　魚心｜旨い魚と日本酒の店</title>
+  <title>海鮮小料理屋　魚心｜横浜・白楽で上手い刺身と日本酒を楽しむなら</title>
     <!-- ★ 明朝Webフォント（Noto Serif JP） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,6 +106,7 @@
       border: 1px solid var(--line);
       background: rgba(233,230,223,.06);
       color: var(--text);
+      font-family: var(--serif);
       font-size: 13px;
       font-family: var(--serif) !important;
       transition:.2s ease;
@@ -274,7 +275,7 @@ form{
   width: 100%;
   height: 320px;          /* ← 地図に合わせる */
   object-fit: cover;      /* ← 枠に収めつつ切り抜き */
-  object-position: center;/* ← 中央基準で切る */
+  object-position: 65% center;  /* ← 中央からずらすで切る */
   display: block;
   border-radius: 12px;
   border: 1px solid var(--line);
@@ -583,7 +584,6 @@ form{
   .box-readmore:hover{
     color: var(--accent2);
   }
-}
 }
 
 .menu-group{
@@ -1019,6 +1019,7 @@ form{
   <div class="nav">
     <a class="brand" href="#about" aria-label="ページ先頭へ">
          <span class="logo" data-inline-svg="logo.svg"></span>
+          <span class="brand-text">｜海鮮小料理屋</span>
     </a>
 
 
@@ -1476,7 +1477,7 @@ document.querySelectorAll('.menu-group').forEach(group => {
 
 
 </script>
-<script src="assets/common.js" defer></script>
-<script src="assets/inline-svg.js" defer></script>
+<script src="assets/common.js?v=260110" defer></script>
+<script src="assets/inline-svg.js?v=260110" defer></script>
 </body>
 </html>
