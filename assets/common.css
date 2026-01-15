@@ -290,3 +290,18 @@ header{
   transform: translateX(0px);
 }
 }
+
+footer .credit {
+  font-size: 11px;
+  color: rgba(233,230,223,.35);
+  text-align: center;
+}
+
+footer .credit a {
+  color: inherit;
+  text-decoration: none;
+}
+
+footer .credit a:hover {
+  text-decoration: underline;
+}
