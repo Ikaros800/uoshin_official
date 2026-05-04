@@ -1100,7 +1100,62 @@ form{
     font-size: 16px;
   }
 }
+/* ===== 問い合わせ＋採用情報：PCは7:3 ===== */
+.contact-recruit-wrap{
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  gap: 14px;
+  align-items: stretch;
+}
 
+/* 問い合わせ内：左 TEL / 右 文言 */
+.contact-inner{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.contact-message p{
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 18px;
+}
+
+/* 採用情報BOX */
+.recruit-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+
+.recruit-box p{
+  margin: 0;
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 20px;
+  letter-spacing: .06em;
+}
+
+/* スマホは縦並び */
+@media (max-width: 860px){
+  .contact-recruit-wrap{
+    grid-template-columns: 1fr;
+  }
+
+  .contact-inner{
+    grid-template-columns: 1fr;
+  }
+
+  .contact-message p{
+    font-size: 16px;
+  }
+
+  .recruit-box p{
+    font-size: 18px;
+  }
+}
   </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script async src="https://www.instagram.com/embed.js"></script>
@@ -1374,37 +1429,62 @@ form{
 
     </section>
 
-    <!-- 問い合わせ -->
-    <section id="contact" class="card section">
+<!-- 問い合わせ＋採用情報 -->
+<section id="contact" class="section">
+  <div class="contact-recruit-wrap">
+
+    <!-- 左：ご予約・お問い合わせ -->
+    <div class="card section">
       <h2>ご予約・お問い合わせ</h2>
-<p class="contact-tel-line">
-  <span class="contact-tel-label">TEL</span>
 
-  <a href="tel:045-423-6464" class="contact-tel-number">
-    045-423-6464
-  </a>
+      <div class="contact-inner">
+        <!-- 左：電話番号 -->
+        <div class="contact-tel-area">
+          <p class="contact-tel-line">
+            <span class="contact-tel-label">TEL</span>
 
-  <a href="tel:045-423-6464"
-     class="contact-tel-icon"
-     aria-label="電話をかける">
-    <i class="fa-solid fa-phone"></i>
-  </a>
+            <a href="tel:045-423-6464" class="contact-tel-number">
+              045-423-6464
+            </a>
 
-  <span class="contact-tel-note">（受付：営業時間に準ずる）</span>
-</p>
-<p>
-    お電話にてお気軽にご連絡ください。<br>
-    貸切のご相談も承っております。
-  </p>
+            <a href="tel:045-423-6464"
+               class="contact-tel-icon"
+               aria-label="電話をかける">
+              <i class="fa-solid fa-phone"></i>
+            </a>
 
-  <a class="btn" 
-     href="https://www.instagram.com/uosin.yokohama/" 
-     target="_blank" 
-     rel="noopener noreferrer">
-    Instagramへ
-  </a>
+            <span class="contact-tel-note">（受付：営業時間に準ずる）</span>
+          </p>
+        </div>
+
+        <!-- 右：文言 -->
+        <div class="contact-message">
+          <p>
+            お電話にてお気軽にご連絡ください。<br>
+            貸切のご相談も承っております。
+          </p>
+
+          <a class="btn" 
+             href="https://www.instagram.com/uosin.yokohama/" 
+             target="_blank" 
+             rel="noopener noreferrer">
+            Instagramはこちら
+          </a>
+        </div>
       </div>
-    </section>
+    </div>
+
+    <!-- 右：採用情報 -->
+    <div class="card section recruit-box">
+      <h2>採用情報</h2>
+      <p>アルバイト募集中</p>
+      <a class="btn primary" href="jobs.html">
+        詳しくはこちら
+      </a>
+    </div>
+
+  </div>
+</section>
 
   </main>
 
@@ -1424,8 +1504,6 @@ form{
   <i class="fa-brands fa-facebook-f"></i>
 </a>
 </div>
-     <a class="quiet-link" href="jobs.html">採用情報（アルバイト）</a>
-
   </footer>
 <script>
 
