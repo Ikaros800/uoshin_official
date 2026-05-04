@@ -54,7 +54,7 @@
 
 .ig-title{
   font-family: var(--serif);     /* ← ここが効く */
-  font-size: 44px;
+  font-size: 48px;
   font-weight: 500;
   letter-spacing: .18em;
   text-align: left;              /* 左寄せのままが渋い */
@@ -63,7 +63,7 @@
 
 .ig-title .lead{
   display: block;
-  font-size: 32px;
+  font-size: 38px;
   line-height: 1.6;
   letter-spacing: 0.06em;
   font-weight: 600;
@@ -76,7 +76,7 @@
   display: block;
   margin-top: 6px;
   font-family: var(--serif);
-  font-size: 18px;          /* PC: 16〜17が見やすい */
+  font-size: 22px;          /* PC: 16〜17が見やすい */
   line-height: 1.95;         /* 明朝は広めが読みやすい */
   letter-spacing: 0.02em;   /* 広げすぎない（0〜0.03） */
   color: var(--muted);              /* 真っ黒を避ける */
@@ -1043,7 +1043,63 @@ form{
     grid-template-rows: auto;
   }
 }
+@media (min-width: 861px){
 
+  .kicker{
+    font-size: 20px;
+  }
+
+  h1{
+    font-size: clamp(34px, 3.6vw, 50px);
+  }
+
+  .lead{
+    font-size: 20px;
+  }
+
+  .btn{
+    font-size: 17px;
+  }
+
+  .mini .label,
+  .mini .value{
+    font-size: 20px;
+  }
+
+  .section h2{
+    font-size: 24px;
+  }
+
+  .box h3{
+    font-size: 22px;
+  }
+
+  .box p,
+  .box ul{
+    font-size: 18px;
+  }
+
+  .notice-title{
+    font-size: 22px;
+  }
+
+  .notice-date,
+  .notice-text{
+    font-size: 18px;
+  }
+
+  .menu-list li{
+    font-size: 18px;
+  }
+
+  .menu-group > .menu-summary{
+    font-size: 18px !important;
+  }
+
+  .menu-note{
+    font-size: 16px;
+  }
+}
 
   </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

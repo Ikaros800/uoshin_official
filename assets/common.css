@@ -8,7 +8,7 @@
       --accent2:#b9935a;
       --shadow: 0 12px 32px rgba(0,0,0,.35);
       --radius: 18px;
-      --max: 1040px;
+      --max: 1200px;
       --serif: "Noto Serif JP", serif;
       --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
     }
@@ -82,6 +82,9 @@
 }
 
 @media (max-width: 1030px){
+  :root{
+    --max:1200px;
+  }
   .header-tel{
     top: 16px;
     right: 16px;
