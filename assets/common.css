@@ -51,6 +51,16 @@
   gap:10px;
 }
 
+.social-link{
+  font-size:24px;
+}
+
+@media (min-width: 1031px){
+  .social-link{
+    font-size:32px;
+  }
+}
+
 /* ヘッダー電話番号（右上固定） */
 .header-tel{
   position: fixed;
